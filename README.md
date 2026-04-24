@@ -3,360 +3,600 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>北区 居宅介護支援事業者 営業アプリ</title>
+
+<title>MOA営業アプリ｜中央区・北区 地域包括支援センター</title>
+
 <style>
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif;
-  background:#f3f6fb;
-  margin:0;
-  padding:12px;
-  color:#222;
-}
-h1{
-  font-size:21px;
-  color:#17406f;
-  margin:10px 0 5px;
-}
-.sub{
-  font-size:13px;
-  color:#666;
-  margin-bottom:10px;
-}
-.box{
-  background:#fff;
-  padding:12px;
-  border-radius:14px;
-  margin-bottom:12px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.08);
-}
-input,select,textarea{
-  width:100%;
-  box-sizing:border-box;
-  padding:11px;
-  margin:5px 0;
-  border:1px solid #ccc;
-  border-radius:10px;
-  font-size:15px;
-}
-button{
-  border:none;
-  border-radius:10px;
-  padding:10px 12px;
-  margin:4px 2px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.main{background:#1f6feb;color:white;}
-.reset{background:#555;color:white;}
-.routeAll{background:#7c3aed;color:white;}
-.copy{background:#0f766e;color:white;}
-.tel{background:#16a34a;color:white;}
-.map{background:#2563eb;color:white;}
-.route{background:#9333ea;color:white;}
-.done{background:#facc15;color:#222;}
-.card{
-  background:white;
-  padding:13px;
-  margin-bottom:10px;
-  border-radius:14px;
-  border-left:6px solid #1f6feb;
-  box-shadow:0 3px 10px rgba(0,0,0,0.08);
-}
-.card.doneCard{
-  opacity:.55;
-  border-left-color:#999;
-}
-.name{
-  font-size:17px;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-.info{
-  font-size:14px;
-  line-height:1.7;
-}
-.badge{
-  display:inline-block;
-  background:#e8f0ff;
-  color:#17406f;
-  border-radius:999px;
-  padding:3px 8px;
-  font-size:12px;
-  margin:2px 2px 5px 0;
-}
-.notice{
-  background:#fff8d7;
-  font-size:13px;
-  line-height:1.7;
-}
-#count{
-  font-weight:bold;
-  color:#17406f;
-}
+  *{
+    box-sizing:border-box;
+  }
+
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    background:#f4f1ec;
+    color:#2f2a25;
+  }
+
+  header{
+    background:linear-gradient(135deg,#5b4636,#9a7a54);
+    color:#fff;
+    padding:18px 14px;
+    text-align:center;
+  }
+
+  header h1{
+    margin:0;
+    font-size:21px;
+    line-height:1.4;
+  }
+
+  header p{
+    margin:8px 0 0;
+    font-size:13px;
+    opacity:.95;
+  }
+
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+    padding:12px;
+  }
+
+  .notice{
+    background:#fff8e8;
+    border:1px solid #ead4a0;
+    color:#5b4636;
+    border-radius:14px;
+    padding:12px;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:12px;
+  }
+
+  .controls{
+    background:#fff;
+    border-radius:16px;
+    padding:12px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    margin-bottom:12px;
+  }
+
+  .row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+
+  input,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d8d0c6;
+    border-radius:12px;
+    font-size:15px;
+    background:#fff;
+  }
+
+  .col{
+    flex:1 1 160px;
+  }
+
+  button{
+    border:none;
+    border-radius:12px;
+    padding:11px 12px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+  }
+
+  .btn-main{
+    background:#5b4636;
+    color:#fff;
+  }
+
+  .btn-sub{
+    background:#e7ddd0;
+    color:#3c332b;
+  }
+
+  .btn-green{
+    background:#2f8f5b;
+    color:#fff;
+  }
+
+  .btn-blue{
+    background:#2f6fbd;
+    color:#fff;
+  }
+
+  .btn-orange{
+    background:#d9822b;
+    color:#fff;
+  }
+
+  .summary{
+    font-weight:bold;
+    margin:8px 2px 10px;
+    color:#5b4636;
+  }
+
+  .card{
+    background:#fff;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:12px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    border-left:7px solid #9a7a54;
+  }
+
+  .card.houkatsu{
+    border-left-color:#2f6fbd;
+  }
+
+  .card.branch{
+    border-left-color:#d9822b;
+  }
+
+  .card.kyotaku{
+    border-left-color:#2f8f5b;
+  }
+
+  .tagline{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:8px;
+  }
+
+  .tag{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:999px;
+    background:#f0ebe4;
+    font-size:12px;
+    color:#5b4636;
+  }
+
+  .name{
+    font-size:18px;
+    font-weight:bold;
+    margin:4px 0 8px;
+    color:#2d2520;
+  }
+
+  .info{
+    font-size:14px;
+    line-height:1.7;
+    margin:4px 0;
+  }
+
+  .memo{
+    background:#f8f5ef;
+    border-radius:10px;
+    padding:9px;
+    font-size:13px;
+    line-height:1.7;
+    margin-top:8px;
+  }
+
+  .actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:12px;
+  }
+
+  .actions a,
+  .actions button{
+    flex:1 1 110px;
+    text-align:center;
+    text-decoration:none;
+    border-radius:12px;
+    padding:11px 8px;
+    color:#fff;
+    font-weight:bold;
+    font-size:14px;
+  }
+
+  .tel{
+    background:#2f8f5b;
+  }
+
+  .map{
+    background:#2f6fbd;
+  }
+
+  .route{
+    background:#d9822b;
+  }
+
+  .copy{
+    background:#5b4636;
+  }
+
+  .footer{
+    text-align:center;
+    font-size:12px;
+    color:#7a6b5f;
+    padding:20px 8px 30px;
+    line-height:1.6;
+  }
+
+  .empty{
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    text-align:center;
+    color:#7a6b5f;
+  }
+
+  @media(max-width:600px){
+    header h1{
+      font-size:18px;
+    }
+
+    .actions a,
+    .actions button{
+      flex:1 1 46%;
+      font-size:13px;
+    }
+  }
 </style>
 </head>
 
 <body>
 
-<h1>北区 居宅介護支援事業者 営業アプリ</h1>
-<div class="sub">MOA合同会社｜老人ホーム紹介 ぬくもり｜営業用</div>
+<header>
+  <h1>MOA営業アプリ<br>中央区・北区 地域包括支援センター</h1>
+  <p>老人ホーム紹介 ぬくもり｜営業訪問・電話・地図確認用</p>
+</header>
 
-<div class="box notice">
-表示されない時は、GitHubの index.html を全部このコードに上書きしてください。  
-検索、電話、地図、巡回ルート、CSV追加ができます。
+<div class="wrap">
+
+  <div class="notice">
+    ※このアプリは営業訪問の補助用です。電話番号・所在地・担当圏域は変更される場合があります。訪問前に必ず公式情報または電話で確認してください。<br>
+    ※ケアマネ様・地域包括様への説明では「無料の老人ホーム紹介」「施設選びの情報提供」「見学同行・入居手続きサポート」として案内し、法律相談・契約判断の代行は行わない表現にしてください。
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <div class="col">
+        <input id="keyword" type="text" placeholder="例：北区、中央区、本町、梅田、地域包括、ブランチ">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <select id="ward">
+          <option value="">区を選択：すべて</option>
+          <option value="中央区">中央区</option>
+          <option value="北区">北区</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <select id="category">
+          <option value="">種別：すべて</option>
+          <option value="地域包括支援センター">地域包括支援センター</option>
+          <option value="総合相談窓口・ブランチ">総合相談窓口・ブランチ</option>
+          <option value="居宅介護支援事業所">居宅介護支援事業所</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <button class="btn-main" onclick="renderList()">検索する</button>
+      <button class="btn-sub" onclick="resetSearch()">リセット</button>
+      <button class="btn-orange" onclick="openAllRoute()">表示中ルートを開く</button>
+    </div>
+  </div>
+
+  <div id="summary" class="summary"></div>
+  <div id="list"></div>
+
+  <div class="footer">
+    MOA合同会社｜老人ホーム紹介 ぬくもり<br>
+    大阪市・豊中市・池田市・箕面市対応
+  </div>
+
 </div>
-
-<div class="box">
-  <input id="keyword" placeholder="検索：北区、天神橋、中崎、南森町、本庄、大淀、梅田など">
-
-  <select id="area">
-    <option value="">エリア指定なし</option>
-    <option value="梅田・中津">梅田・中津</option>
-    <option value="中崎・天六">中崎・天六</option>
-    <option value="南森町・天満">南森町・天満</option>
-    <option value="本庄・大淀">本庄・大淀</option>
-  </select>
-
-  <button class="main" onclick="showList()">検索</button>
-  <button class="reset" onclick="resetSearch()">リセット</button>
-  <button class="routeAll" onclick="openRouteAll()">表示中の巡回ルート</button>
-  <button class="copy" onclick="copyCSV()">CSVコピー</button>
-</div>
-
-<div class="box">
-  <b>CSV追加</b>
-  <div class="sub">形式：事業所名,住所,電話番号,エリア</div>
-  <textarea id="csvInput" rows="4" placeholder="例：
-サンプルケアプランセンター,大阪市北区〇〇1-2-3,06-0000-0000,南森町・天満"></textarea>
-  <button class="main" onclick="addCSV()">CSVを追加</button>
-</div>
-
-<div class="box">
-  表示件数：<span id="count">0</span>件
-</div>
-
-<div id="list"></div>
 
 <script>
-var baseCSV = `
-社会福祉法人恩賜財団済生会支部大阪府済生会中津病院,大阪市北区芝田二丁目10番39号,06-6372-0733,梅田・中津
-有限会社介護ステーションヘイル,大阪市北区鶴野町4番11-903号 朝日プラザ梅田,06-4802-2084,梅田・中津
-居宅介護支援事業所せいび,大阪市北区中崎西三丁目3番40号,06-6485-2283,中崎・天六
-アリーケアプランセンター,大阪市北区中崎西一丁目4番22-305号 梅田東ビル,072-260-9486,中崎・天六
-sfee,大阪市北区中崎西三丁目2番7号,06-6476-8255,中崎・天六
-ケアプランセンター蓮,大阪市北区中崎西四丁目3番32-802号 ARCA梅田ビル8階,06-6131-7075,中崎・天六
-医療福祉生協おおさかいきいきケアプランセンター,大阪市北区中崎一丁目6番20号,06-4802-4366,中崎・天六
-社会医療法人行岡医学研究会行岡病院,大阪市北区浮田二丁目2番3号,06-6371-9921,中崎・天六
-ケアプランセンタータオ,大阪市北区浪花町13番38号 千代田ビル北館6階B号室,06-6486-9618,中崎・天六
-あいあいケアセンター中崎通り,大阪市北区浪花町5番7号,06-6292-4530,中崎・天六
-あんじゅケアプランセンター,大阪市北区山崎町1番6号,06-6374-2170,中崎・天六
-北区在宅サービスセンター いきいきネット,大阪市北区神山町15番11号,06-6313-1911,梅田・中津
-医師会立北区訪問看護ステーション,大阪市北区神山町15番11号,06-6313-1415,梅田・中津
-ケアセンターてんま,大阪市北区池田町12-10,06-6136-0200,南森町・天満
-リンクケアプラン,大阪市北区松ケ枝町6番1-603号 グロウビル,090-8367-4091,南森町・天満
-グッドライフケア居宅介護支援センター大阪北,大阪市北区紅梅町1番6号 カザリーノビル6階,06-6809-5570,南森町・天満
-ケアサービスダンデライオン,大阪市北区天神橋五丁目7番10号 さかしん天神橋ビル7F,06-4801-8322,中崎・天六
-ケアクル居宅介護支援センター,大阪市北区天神橋二丁目2番10-301号,06-6351-2177,南森町・天満
-匠ケア,大阪市北区天神橋二丁目北1番21号 八千代ビル東館2K号,06-6967-9993,南森町・天満
-株式会社KOSMOホームヘルプサービス大阪事業所,大阪市北区天神橋二丁目2番10-501号 ハイ・マウントビル,06-4309-6672,南森町・天満
-ひかり介護サービス,大阪市北区天神橋三丁目2番31号,06-4801-9754,南森町・天満
-居宅介護支援事業所ほりかわ,大阪市北区天神橋二丁目北1番2号,06-6351-8281,南森町・天満
-クローバー居宅介護支援事業所,大阪市北区天神橋五丁目6番23号,06-6352-8470,中崎・天六
-天神介護サービス,大阪市北区天神橋三丁目7番18-302号 三海ビル,06-6353-2012,南森町・天満
-アリスケア,大阪市北区天神橋五丁目8番12号 大河崎ビル6階,06-6809-1168,中崎・天六
-トータルサービス冨士田,大阪市北区天神橋一丁目18番25号,06-6352-0567,南森町・天満
-アンポートケアプランセンター,大阪市北区天満二丁目9番13号,06-4801-8373,南森町・天満
-すこやか介護ケアプランセンター,大阪市北区天神西町1番6号 アールビル天神西8F,06-6940-4160,南森町・天満
-ピースケアプランセンター,大阪市北区菅原町11番10号 オーキッド中之島402号North,06-6361-0075,南森町・天満
-ケアプランセンターMSC,大阪市北区西天満三丁目13番20号 ASビル6階,06-6232-8263,南森町・天満
-ケアプランセンターあずき,大阪市北区南森町一丁目3番29-1004号,06-6926-4275,南森町・天満
-株式会社ハート介護サービス居宅介護支援事業所,大阪市北区南森町二丁目2番9号 南森町八千代ビル1階,06-6362-3368,南森町・天満
-ケアプランセンターひまわりの苑,大阪市北区曽根崎一丁目1番20号,06-7501-8688,梅田・中津
-きん柑ケアプランセンター北,大阪市北区天神橋七丁目3番2-604号 大山ビル,06-4792-8859,中崎・天六
-えすぽわーるこころ,大阪市北区天神橋七丁目10番2号 喜住ビル1F,06-6766-4147,中崎・天六
-ケアプランセンター寿梨の里,大阪市北区天神橋七丁目15番2-101号,06-6360-9323,中崎・天六
-まごころケア北,大阪市北区長柄西一丁目1番16号,06-6352-0830,中崎・天六
-ハートフルかのうケアプランセンター,大阪市北区長柄中一丁目1番21号,06-6354-1108,中崎・天六
-エルケア株式会社エルケア長柄ケアプランセンター,大阪市北区長柄東二丁目8番36号 淀川リバーサイド・ビーネ2階,06-7688-5078,中崎・天六
-ケア21北,大阪市北区国分寺二丁目1番14号 ACOM天六ビル5階,06-7167-2421,中崎・天六
-株式会社ソニックコーポレーショントータルケアサービス,大阪市北区中津七丁目3番7-301号,06-6457-0207,梅田・中津
-居宅介護支援事業所藤ミレニアム,大阪市北区本庄西二丁目6番15号,06-6371-6322,本庄・大淀
-ケアプランセンターアセス,大阪市北区本庄西一丁目9番12号 朝日プラザ北梅田1F東側,06-6486-9073,本庄・大淀
-なでしこケアプランセンター,大阪市北区本庄西二丁目15番12号,06-6373-1724,本庄・大淀
-ユアーズ介護ケアプランオフィス,大阪市北区本庄東二丁目2番25号 クリエイト天八ビル7階,06-6373-7224,本庄・大淀
-もりたケアプランセンター,大阪市北区本庄東二丁目1番23-202号 スペチアーレ,06-6131-9740,本庄・大淀
-もこもこセンター,大阪市北区本庄東二丁目12番15号,06-7651-6935,本庄・大淀
-介護ステーションワンピース,大阪市北区本庄東三丁目10番22号,06-6373-4033,本庄・大淀
-愛と心の居宅介護支援センター大阪,大阪市北区本庄東一丁目14番4号,06-6305-8008,本庄・大淀
-居宅介護支援事業所淳風おおさか,大阪市北区大淀南二丁目5番20号,06-6450-1140,本庄・大淀
-ケアプランセンターあいわ,大阪市北区大淀中四丁目6番16号,06-6345-7832,本庄・大淀
-支援事業所大阪北,大阪市北区大淀中五丁目5番8号,06-7174-4425,本庄・大淀
-`;
+/* =====================================================
+   MOA営業アプリ 完全版
+   中央区・北区 地域包括支援センター入り
+   ここに居宅介護支援事業所も追加できます
+===================================================== */
 
-var data = [];
-var doneList = JSON.parse(localStorage.getItem("kita_done") || "[]");
+const facilities = [
+  {
+    ward:"中央区",
+    category:"地域包括支援センター",
+    name:"中央区地域包括支援センター",
+    address:"大阪市中央区上本町西2丁目5番25号",
+    tel:"06-6763-8139",
+    fax:"06-6763-8153",
+    hours:"平日 9:00〜19:00／土曜 9:00〜17:30",
+    area:"桃園・桃谷・東平・金甌・渥美・芦池・御津・大宝・道仁・高津・精華・河原地域",
+    memo:"中央区南部・上町方面の高齢者総合相談窓口。老人ホーム紹介の連携挨拶先として優先。",
+    priority:1
+  },
+  {
+    ward:"中央区",
+    category:"地域包括支援センター",
+    name:"中央区北部地域包括支援センター",
+    address:"大阪市中央区農人橋3丁目1番3号 ドミール堺筋本町1階",
+    tel:"06-6944-2116",
+    fax:"06-6944-2117",
+    hours:"平日 9:00〜19:00／土曜 9:00〜17:00",
+    area:"愛日・集英・中大江・南大江・玉造地域",
+    memo:"本町・堺筋本町・谷町四丁目方面から営業しやすい地域包括。MOA事務所から近い訪問先。",
+    priority:2
+  },
+  {
+    ward:"北区",
+    category:"地域包括支援センター",
+    name:"北区地域包括支援センター",
+    address:"大阪市北区神山町15-11",
+    tel:"06-6313-5568",
+    fax:"06-6314-6377",
+    hours:"平日 9:00〜19:00／土曜 9:00〜17:00",
+    area:"滝川・堀川・西天満・菅南・梅田東・北天満・済美・菅北・曽根崎・北野・堂島・中之島方面",
+    memo:"梅田・中崎町・扇町方面から回りやすい北区の中心的な地域包括。",
+    priority:3
+  },
+  {
+    ward:"北区",
+    category:"地域包括支援センター",
+    name:"北区大淀地域包括支援センター",
+    address:"大阪市北区長柄中1丁目1番21号",
+    tel:"06-6354-1165",
+    fax:"06-6354-1175",
+    hours:"平日・土曜の開館時間は訪問前に要確認",
+    area:"豊仁・豊崎東・本庄・豊崎・中津・大淀東・大淀西方面",
+    memo:"天六・長柄・中津・大淀方面を回るときの優先訪問先。",
+    priority:4
+  },
+  {
+    ward:"北区",
+    category:"総合相談窓口・ブランチ",
+    name:"梅田東地域総合相談窓口・ブランチ",
+    address:"大阪市北区芝田2丁目10番39号",
+    tel:"06-6372-0804",
+    fax:"06-6105-1361",
+    hours:"訪問前に要確認",
+    area:"梅田東・北天満・済美・曽根崎・堂島・中之島方面",
+    memo:"梅田周辺の相談窓口。梅田方面の営業時に一緒に回りやすい。",
+    priority:5
+  },
+  {
+    ward:"北区",
+    category:"総合相談窓口・ブランチ",
+    name:"豊崎地域総合相談窓口・ブランチ",
+    address:"大阪市北区本庄西2丁目6番15号",
+    tel:"06-6371-6233",
+    fax:"06-6371-6244",
+    hours:"訪問前に要確認",
+    area:"豊崎・本庄・中津方面",
+    memo:"豊崎・中津方面の地域相談窓口。北区大淀地域包括とセットで回りやすい。",
+    priority:6
+  },
 
-function loadData(){
-  data = [];
-  var lines = baseCSV.trim().split("\n");
-  for(var i=0;i<lines.length;i++){
-    var c = lines[i].split(",");
-    data.push({
-      name:c[0] || "",
-      address:c[1] || "",
-      tel:c[2] || "",
-      area:c[3] || "北区"
-    });
+  /* =====================================================
+     居宅介護支援事業所を入れる場合は、
+     この下に同じ形で追加してください。
+     例：
+  ===================================================== */
+
+  {
+    ward:"中央区",
+    category:"居宅介護支援事業所",
+    name:"【例】中央区 居宅介護支援事業所",
+    address:"大阪市中央区本町周辺",
+    tel:"",
+    fax:"",
+    hours:"訪問前に確認",
+    area:"中央区",
+    memo:"ここはサンプルです。実際の居宅名・住所・電話番号に書き換えてください。",
+    priority:99
   }
+];
 
-  var add = JSON.parse(localStorage.getItem("kita_added") || "[]");
-  data = data.concat(add);
+/* ===== Google Maps用 ===== */
+
+function mapUrl(address){
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
 }
 
-function clean(t){
-  return String(t || "")
-    .toLowerCase()
-    .replace(/　/g," ")
-    .replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-65248);});
+function routeUrl(address){
+  return "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(address);
 }
 
-function getItems(){
-  var key = clean(document.getElementById("keyword").value);
-  var area = document.getElementById("area").value;
+function telUrl(tel){
+  if(!tel) return "#";
+  return "tel:" + tel.replaceAll("-", "");
+}
 
-  return data.filter(function(x){
-    var target = clean(x.name + " " + x.address + " " + x.tel + " " + x.area);
-    var ok1 = key === "" || target.indexOf(key) !== -1;
-    var ok2 = area === "" || x.area === area;
-    return ok1 && ok2;
+/* ===== 表示 ===== */
+
+function renderList(){
+  const keyword = document.getElementById("keyword").value.trim().toLowerCase();
+  const ward = document.getElementById("ward").value;
+  const category = document.getElementById("category").value;
+
+  let data = facilities.filter(item => {
+    const text = [
+      item.ward,
+      item.category,
+      item.name,
+      item.address,
+      item.tel,
+      item.fax,
+      item.hours,
+      item.area,
+      item.memo
+    ].join(" ").toLowerCase();
+
+    const okKeyword = !keyword || text.includes(keyword);
+    const okWard = !ward || item.ward === ward;
+    const okCategory = !category || item.category === category;
+
+    return okKeyword && okWard && okCategory;
   });
-}
 
-function showList(){
-  loadData();
+  data.sort((a,b) => a.priority - b.priority);
 
-  var list = document.getElementById("list");
-  var items = getItems();
-  document.getElementById("count").textContent = items.length;
-  list.innerHTML = "";
+  const list = document.getElementById("list");
+  const summary = document.getElementById("summary");
 
-  if(items.length === 0){
-    list.innerHTML = "<div class='card'>表示できる事業所がありません。検索を短くしてください。例：天神橋、中崎、南森町、本庄</div>";
+  summary.textContent = "表示件数：" + data.length + "件";
+
+  if(data.length === 0){
+    list.innerHTML = `
+      <div class="empty">
+        該当する営業先がありません。<br>
+        「北区」「中央区」「地域包括」「ブランチ」などで検索してください。
+      </div>
+    `;
     return;
   }
 
-  for(var i=0;i<items.length;i++){
-    var x = items[i];
-    var id = x.name + x.address;
-    var isDone = doneList.indexOf(id) !== -1;
+  list.innerHTML = data.map((item,index) => {
+    let cardClass = "card";
+    if(item.category === "地域包括支援センター") cardClass += " houkatsu";
+    if(item.category === "総合相談窓口・ブランチ") cardClass += " branch";
+    if(item.category === "居宅介護支援事業所") cardClass += " kyotaku";
 
-    var mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(x.address);
-    var routeUrl = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(x.address) + "&travelmode=walking";
+    return `
+      <div class="${cardClass}">
+        <div class="tagline">
+          <span class="tag">${index + 1}</span>
+          <span class="tag">${item.ward}</span>
+          <span class="tag">${item.category}</span>
+        </div>
 
-    var div = document.createElement("div");
-    div.className = "card" + (isDone ? " doneCard" : "");
+        <div class="name">${escapeHtml(item.name)}</div>
 
-    div.innerHTML =
-      "<div class='name'>" + (i+1) + ". " + x.name + "</div>" +
-      "<span class='badge'>" + x.area + "</span>" +
-      "<span class='badge'>居宅介護支援</span>" +
-      "<div class='info'>" +
-      "住所：" + x.address + "<br>" +
-      "電話：" + x.tel +
-      "</div>" +
-      "<div>" +
-      "<a href='tel:" + x.tel + "'><button class='tel'>電話</button></a>" +
-      "<a href='" + mapUrl + "' target='_blank'><button class='map'>地図</button></a>" +
-      "<a href='" + routeUrl + "' target='_blank'><button class='route'>ここへ行く</button></a>" +
-      "<button class='done' onclick='toggleDone(" + JSON.stringify(id) + ")'>" + (isDone ? "営業済み解除" : "営業済み") + "</button>" +
-      "</div>";
+        <div class="info">📍 <strong>住所：</strong>${escapeHtml(item.address)}</div>
+        <div class="info">☎️ <strong>電話：</strong>${item.tel ? escapeHtml(item.tel) : "未入力"}</div>
+        <div class="info">📠 <strong>FAX：</strong>${item.fax ? escapeHtml(item.fax) : "未入力"}</div>
+        <div class="info">🕘 <strong>時間：</strong>${escapeHtml(item.hours || "訪問前に確認")}</div>
+        <div class="info">🗺️ <strong>担当・対象：</strong>${escapeHtml(item.area || "")}</div>
 
-    list.appendChild(div);
-  }
+        <div class="memo">
+          <strong>営業メモ：</strong><br>
+          ${escapeHtml(item.memo || "")}
+        </div>
+
+        <div class="actions">
+          <a class="tel" href="${telUrl(item.tel)}">電話</a>
+          <a class="map" href="${mapUrl(item.address)}" target="_blank">地図</a>
+          <a class="route" href="${routeUrl(item.address)}" target="_blank">ルート</a>
+          <button class="copy" onclick="copyInfo(${facilities.indexOf(item)})">コピー</button>
+        </div>
+      </div>
+    `;
+  }).join("");
 }
 
-function toggleDone(id){
-  var n = doneList.indexOf(id);
-  if(n === -1){
-    doneList.push(id);
-  }else{
-    doneList.splice(n,1);
-  }
-  localStorage.setItem("kita_done", JSON.stringify(doneList));
-  showList();
-}
+/* ===== リセット ===== */
 
 function resetSearch(){
   document.getElementById("keyword").value = "";
-  document.getElementById("area").value = "";
-  showList();
+  document.getElementById("ward").value = "";
+  document.getElementById("category").value = "";
+  renderList();
 }
 
-function openRouteAll(){
-  var items = getItems().slice(0,9);
+/* ===== 表示中の全ルート ===== */
 
-  if(items.length === 0){
-    alert("ルートにする事業所がありません");
+function openAllRoute(){
+  const keyword = document.getElementById("keyword").value.trim().toLowerCase();
+  const ward = document.getElementById("ward").value;
+  const category = document.getElementById("category").value;
+
+  let data = facilities.filter(item => {
+    const text = [
+      item.ward,
+      item.category,
+      item.name,
+      item.address,
+      item.tel,
+      item.fax,
+      item.hours,
+      item.area,
+      item.memo
+    ].join(" ").toLowerCase();
+
+    const okKeyword = !keyword || text.includes(keyword);
+    const okWard = !ward || item.ward === ward;
+    const okCategory = !category || item.category === category;
+
+    return okKeyword && okWard && okCategory;
+  });
+
+  data.sort((a,b) => a.priority - b.priority);
+
+  if(data.length === 0){
+    alert("表示中の営業先がありません。");
     return;
   }
 
-  var destination = items[items.length-1].address;
-  var waypoints = items.slice(0,items.length-1).map(function(x){return x.address;}).join("|");
+  const destination = data[data.length - 1].address;
+  const waypoints = data.slice(0, -1).map(x => x.address).join("|");
 
-  var url = "https://www.google.com/maps/dir/?api=1";
-  url += "&origin=" + encodeURIComponent("大阪市北区");
+  let url = "https://www.google.com/maps/dir/?api=1";
   url += "&destination=" + encodeURIComponent(destination);
+
   if(waypoints){
     url += "&waypoints=" + encodeURIComponent(waypoints);
   }
-  url += "&travelmode=walking";
 
-  window.open(url,"_blank");
+  window.open(url, "_blank");
 }
 
-function addCSV(){
-  var text = document.getElementById("csvInput").value.trim();
-  if(!text){
-    alert("CSVを入れてください");
-    return;
-  }
+/* ===== コピー ===== */
 
-  var added = JSON.parse(localStorage.getItem("kita_added") || "[]");
-  var lines = text.split("\n");
+function copyInfo(index){
+  const item = facilities[index];
 
-  for(var i=0;i<lines.length;i++){
-    var c = lines[i].split(",");
-    if(c.length >= 3){
-      added.push({
-        name:c[0] || "",
-        address:c[1] || "",
-        tel:c[2] || "",
-        area:c[3] || "北区"
-      });
-    }
-  }
+  const text = `
+【${item.ward}】${item.category}
+${item.name}
 
-  localStorage.setItem("kita_added", JSON.stringify(added));
-  document.getElementById("csvInput").value = "";
-  alert("追加しました");
-  showList();
-}
+住所：${item.address}
+電話：${item.tel || "未入力"}
+FAX：${item.fax || "未入力"}
+時間：${item.hours || "訪問前に確認"}
+担当・対象：${item.area || ""}
+営業メモ：${item.memo || ""}
+地図：${mapUrl(item.address)}
+`;
 
-function copyCSV(){
-  var items = getItems();
-  var csv = "事業所名,住所,電話番号,エリア\n";
-  for(var i=0;i<items.length;i++){
-    csv += '"' + items[i].name + '","' + items[i].address + '","' + items[i].tel + '","' + items[i].area + '"\n';
-  }
-
-  navigator.clipboard.writeText(csv).then(function(){
-    alert("CSVをコピーしました");
+  navigator.clipboard.writeText(text).then(() => {
+    alert("コピーしました。営業メモやLINE・メールに貼れます。");
+  }).catch(() => {
+    alert("コピーできませんでした。");
   });
 }
 
-window.onload = function(){
-  showList();
-};
+/* ===== 文字化け・HTML崩れ防止 ===== */
+
+function escapeHtml(str){
+  if(!str) return "";
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* ===== 最初に一覧表示 ===== */
+
+renderList();
 </script>
 
 </body>
