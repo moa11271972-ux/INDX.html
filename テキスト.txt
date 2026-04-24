@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北区 居宅介護支援事業者 営業アプリ</title>
+
+<style>
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:#f5f7fb;
+  margin:0;
+  padding:12px;
+  color:#222;
+}
+h1{
+  font-size:21px;
+  margin:10px 0 4px;
+  color:#1f3b73;
+}
+.sub{
+  font-size:13px;
+  color:#666;
+  margin-bottom:10px;
+}
+.controls{
+  background:#fff;
+  padding:12px;
+  border-radius:14px;
+  margin-bottom:12px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+input,select,textarea{
+  width:100%;
+  box-sizing:border-box;
+  padding:10px;
+  margin:5px 0;
+  border-radius:9px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+button{
+  padding:10px 12px;
+  margin:4px 2px;
+  border:none;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:bold;
+}
+.btn-main{background:#1f6feb;color:#fff;}
+.btn-route{background:#7b3fe4;color:#fff;}
+.btn-reset{background:#555;color:#fff;}
+.btn-copy{background:#0f766e;color:#fff;}
+.btn-small{font-size:13px;padding:8px 10px;}
+.card{
+  background:#fff;
+  margin-bottom:10px;
+  padding:13px;
+  border-radius:14px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+  border-left:6px solid #1f6feb;
+}
+.name{
+  font-weight:bold;
+  font-size:17px;
+  color:#111;
+  margin-bottom:6px;
+}
+.meta{
+  font-size:13px;
+  color:#555;
+  line-height:1.6;
+}
+.actions{
+  margin-top:8px;
+}
+.tel{background:#16a34a;color:#fff;}
+.map{background:#2563eb;color:#fff;}
+.route{background:#9333ea;color:#fff;}
+.done{background:#eab308;color:#111;}
+.badge{
+  display:inline-block;
+  background:#e8f0ff;
+  color:#1f3b73;
+  border-radius:999px;
+  padding:3px 8px;
+  font-size:12px;
+  margin:2px;
+}
+.done-card{
+  opacity:0.55;
+  border-left-color:#aaa;
+}
+.notice{
+  font-size:12px;
+  color:#666;
+  line-height:1.6;
+  background:#fff8dc;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+#count{
+  font-weight:bold;
+  color:#1f3b73;
+}
+.footer{
+  font-size:12px;
+  color:#777;
+  margin:20px 0;
+  line-height:1.7;
+}
+</style>
+</head>
+
+<body>
+
+<h1>北区 居宅介護支援事業者 営業アプリ</h1>
+<div class="sub">MOA合同会社｜老人ホーム紹介 ぬくもり｜営業訪問・電話・地図用</div>
+
+<div class="notice">
+このアプリは営業管理用です。表示情報は公開情報をもとにしています。訪問前に電話番号・所在地・担当者の在籍状況は必ず確認してください。
+</div>
+
+<div class="controls">
+  <input id="keyword" type="text" placeholder="検索：北区、天神橋、中崎、南森町、本庄、事業所名など">
+
+  <select id="area">
+    <option value="">エリアで絞り込みなし</option>
+    <option value="梅田・中津">梅田・中津周辺</option>
+    <option value="中崎・天六">中崎・天六周辺</option>
+    <option value="南森町・天満">南森町・天満周辺</option>
+    <option value="本庄・大淀">本庄・大淀周辺</option>
+  </select>
+
+  <button class="btn-main" onclick="render()">検索する</button>
+  <button class="btn-reset" onclick="resetSearch()">リセット</button>
+  <button class="btn-route" onclick="openRoute()">表示中の巡回ルートを開く</button>
+  <button class="btn-copy" onclick="copyCSV()">CSVをコピー</button>
+</div>
+
+<div class="controls">
+  <b>CSV追加</b>
+  <div class="sub">形式：事業所名,住所,電話番号,エリア</div>
+  <textarea id="csvInput" rows="4" placeholder="例：
+サンプルケアプランセンター,大阪市北区〇〇1-2-3,06-0000-0000,南森町・天満"></textarea>
+  <button class="btn-main" onclick="addCSV()">CSVを追加する</button>
+</div>
+
+<div class="controls">
+  表示件数：<span id="count">0</span> 件
+</div>
+
+<div id="list"></div>
+
+<div class="footer">
+  ※「営業済み」はこのスマホ・ブラウザ内だけに保存されます。<br>
+  ※Googleマップのルートは徒歩・営業順の目安です。実際の交通状況に合わせて調整してください。
+</div>
+
+<script>
+const DATA = [
+  {name:"社会福祉法人恩賜財団済生会支部大阪府済生会中津病院", address:"大阪市北区芝田二丁目10番39号", tel:"06-6372-0733", fax:"06-6372-0752", area:"梅田・中津"},
+  {name:"有限会社介護ステーションヘイル", address:"大阪市北区鶴野町4番11-903号 朝日プラザ梅田", tel:"06-4802-2084", fax:"06-4802-2086", area:"梅田・中津"},
+  {name:"居宅介護支援事業所せいび", address:"大阪市北区中崎西三丁目3番40号", tel:"06-6485-2283", fax:"06-6485-2283", area:"中崎・天六"},
+  {name:"アリーケアプランセンター", address:"大阪市北区中崎西一丁目4番22-305号 梅田東ビル", tel:"072-260-9486", fax:"06-7739-5316", area:"中崎・天六"},
+  {name:"sfee", address:"大阪市北区中崎西三丁目2番7号", tel:"06-6476-8255", fax:"06-6476-8256", area:"中崎・天六"},
+  {name:"ケアプランセンター蓮", address:"大阪市北区中崎西四丁目3番32-802号 ARCA梅田ビル8階", tel:"06-6131-7075", fax:"06-6131-8803", area:"中崎・天六"},
+  {name:"医療福祉生協おおさかいきいきケアプランセンター", address:"大阪市北区中崎一丁目6番20号", tel:"06-4802-4366", fax:"06-4802-3511", area:"中崎・天六"},
+  {name:"社会医療法人行岡医学研究会行岡病院", address:"大阪市北区浮田二丁目2番3号", tel:"06-6371-9921", fax:"06-6371-4199", area:"中崎・天六"},
+  {name:"ケアプランセンタータオ", address:"大阪市北区浪花町13番38号 千代田ビル北館6階B号室", tel:"06-6486-9618", fax:"06-6476-8245", area:"中崎・天六"},
+  {name:"あいあいケアセンター中崎通り", address:"大阪市北区浪花町5番7号", tel:"06-6292-4530", fax:"06-6292-4534", area:"中崎・天六"},
+  {name:"あんじゅケアプランセンター", address:"大阪市北区山崎町1番6号", tel:"06-6374-2170", fax:"06-6374-2171", area:"中崎・天六"},
+  {name:"北区在宅サービスセンター（いきいきネット）", address:"大阪市北区神山町15番11号", tel:"06-6313-1911", fax:"06-6314-6377", area:"梅田・中津"},
+  {name:"医師会立北区訪問看護ステーション", address:"大阪市北区神山町15番11号", tel:"06-6313-1415", fax:"06-6313-1416", area:"梅田・中津"},
+  {name:"ケアセンターてんま", address:"大阪市北区池田町12-10", tel:"06-6136-0200", fax:"06-6136-0202", area:"南森町・天満"},
+  {name:"リンクケアプラン", address:"大阪市北区松ケ枝町6番1-603号 グロウビル", tel:"090-8367-4091", fax:"", area:"南森町・天満"},
+  {name:"グッドライフケア居宅介護支援センター大阪北", address:"大阪市北区紅梅町1番6号 カザリーノビル6階", tel:"06-6809-5570", fax:"06-6948-6521", area:"南森町・天満"},
+  {name:"ケアサービスダンデライオン", address:"大阪市北区天神橋五丁目7番10号 さかしん天神橋ビル7F", tel:"06-4801-8322", fax:"06-4801-8344", area:"中崎・天六"},
+  {name:"ケアクル居宅介護支援センター", address:"大阪市北区天神橋二丁目2番10-301号", tel:"06-6351-2177", fax:"06-6351-2178", area:"南森町・天満"},
+  {name:"匠ケア", address:"大阪市北区天神橋二丁目北1番21号 八千代ビル東館2K号", tel:"06-6967-9993", fax:"06-6967-9994", area:"南森町・天満"},
+  {name:"株式会社KOSMOホームヘルプサービス大阪事業所", address:"大阪市北区天神橋二丁目2番10-501号 ハイ・マウントビル", tel:"06-4309-6672", fax:"06-4309-6673", area:"南森町・天満"},
+  {name:"ひかり介護サービス", address:"大阪市北区天神橋三丁目2番31号", tel:"06-4801-9754", fax:"06-4801-9755", area:"南森町・天満"},
+  {name:"居宅介護支援事業所ほりかわ", address:"大阪市北区天神橋二丁目北1番2号", tel:"06-6351-8281", fax:"06-6351-8298", area:"南森町・天満"},
+  {name:"クローバー居宅介護支援事業所", address:"大阪市北区天神橋五丁目6番23号", tel:"06-6352-8470", fax:"06-6352-8472", area:"中崎・天六"},
+  {name:"天神介護サービス", address:"大阪市北区天神橋三丁目7番18-302号 三海ビル", tel:"06-6353-2012", fax:"06-6353-2013", area:"南森町・天満"},
+  {name:"アリスケア", address:"大阪市北区天神橋五丁目8番12号 大河崎ビル6階", tel:"06-6809-1168", fax:"06-6809-1169", area:"中崎・天六"},
+  {name:"トータルサービス冨士田", address:"大阪市北区天神橋一丁目18番25号", tel:"06-6352-0567", fax:"06-6352-2900", area:"南森町・天満"},
+  {name:"アンポートケアプランセンター", address:"大阪市北区天満二丁目9番13号", tel:"06-4801-8373", fax:"06-4801-8372", area:"南森町・天満"},
+  {name:"すこやか介護ケアプランセンター", address:"大阪市北区天神西町1番6号 アールビル天神西8F", tel:"06-6940-4160", fax:"06-6940-4161", area:"南森町・天満"},
+  {name:"ピースケアプランセンター", address:"大阪市北区菅原町11番10号 オーキッド中之島402号North", tel:"06-6361-0075", fax:"06-4709-6000", area:"南森町・天満"},
+  {name:"ケアプランセンターMSC", address:"大阪市北区西天満三丁目13番20号 ASビル6階", tel:"06-6232-8263", fax:"06-6232-8122", area:"南森町・天満"},
+  {name:"ケアプランセンターあずき", address:"大阪市北区南森町一丁目3番29-1004号", tel:"06-6926-4275", fax:"06-6926-4276", area:"南森町・天満"},
+  {name:"株式会社ハート介護サービス居宅介護支援事業所", address:"大阪市北区南森町二丁目2番9号 南森町八千代ビル1階", tel:"06-6362-3368", fax:"06-6362-3367", area:"南森町・天満"},
+  {name:"ケアプランセンターひまわりの苑", address:"大阪市北区曽根崎一丁目1番20号", tel:"06-7501-8688", fax:"06-7501-8691", area:"梅田・中津"},
+  {name:"きん柑ケアプランセンター北", address:"大阪市北区天神橋七丁目3番2-604号 大山ビル", tel:"06-4792-8859", fax:"06-4792-8860", area:"中崎・天六"},
+  {name:"えすぽわーるこころ", address:"大阪市北区天神橋七丁目10番2号 喜住ビル1F", tel:"06-6766-4147", fax:"06-6766-4148", area:"中崎・天六"},
+  {name:"ケアプランセンター寿梨の里", address:"大阪市北区天神橋七丁目15番2-101号", tel:"06-6360-9323", fax:"06-6360-9322", area:"中崎・天六"},
+  {name:"まごころケア北", address:"大阪市北区長柄西一丁目1番16号", tel:"06-6352-0830", fax:"06-6352-0831", area:"中崎・天六"},
+  {name:"ハートフルかのうケアプランセンター", address:"大阪市北区長柄中一丁目1番21号", tel:"06-6354-1108", fax:"06-6354-1121", area:"中崎・天六"},
+  {name:"エルケア株式会社エルケア長柄ケアプランセンター", address:"大阪市北区長柄東二丁目8番36号 淀川リバーサイド・ビーネ2階", tel:"06-7688-5078", fax:"06-7688-5079", area:"中崎・天六"},
+  {name:"ケア21北", address:"大阪市北区国分寺二丁目1番14号 ACOM天六ビル5階", tel:"06-7167-2421", fax:"06-6355-0121", area:"中崎・天六"},
+  {name:"株式会社ソニックコーポレーショントータルケアサービス", address:"大阪市北区中津七丁目3番7-301号", tel:"06-6457-0207", fax:"06-6457-0208", area:"梅田・中津"},
+  {name:"居宅介護支援事業所藤ミレニアム", address:"大阪市北区本庄西二丁目6番15号", tel:"06-6371-6322", fax:"06-6371-6364", area:"本庄・大淀"},
+  {name:"ケアプランセンターアセス", address:"大阪市北区本庄西一丁目9番12号 朝日プラザ北梅田1F東側", tel:"06-6486-9073", fax:"06-6292-6658", area:"本庄・大淀"},
+  {name:"なでしこケアプランセンター", address:"大阪市北区本庄西二丁目15番12号", tel:"06-6373-1724", fax:"06-7502-2296", area:"本庄・大淀"},
+  {name:"ユアーズ介護ケアプランオフィス", address:"大阪市北区本庄東二丁目2番25号 クリエイト天八ビル7階", tel:"06-6373-7224", fax:"06-6373-7223", area:"本庄・大淀"},
+  {name:"もりたケアプランセンター", address:"大阪市北区本庄東二丁目1番23-202号 スペチアーレ", tel:"06-6131-9740", fax:"06-6131-9755", area:"本庄・大淀"},
+  {name:"もこもこセンター", address:"大阪市北区本庄東二丁目12番15号", tel:"06-7651-6935", fax:"06-7652-7774", area:"本庄・大淀"},
+  {name:"介護ステーションワンピース", address:"大阪市北区本庄東三丁目10番22号", tel:"06-6373-4033", fax:"06-6373-4033", area:"本庄・大淀"},
+  {name:"愛と心の居宅介護支援センター大阪", address:"大阪市北区本庄東一丁目14番4号", tel:"06-6305-8008", fax:"06-7739-5321", area:"本庄・大淀"},
+  {name:"居宅介護支援事業所淳風おおさか", address:"大阪市北区大淀南二丁目5番20号", tel:"06-6450-1140", fax:"06-6450-1130", area:"本庄・大淀"},
+  {name:"ケアプランセンターあいわ", address:"大阪市北区大淀中四丁目6番16号", tel:"06-6345-7832", fax:"06-6345-7833", area:"本庄・大淀"},
+  {name:"支援事業所大阪北", address:"大阪市北区大淀中五丁目5番8号", tel:"06-7174-4425", fax:"06-7174-4425", area:"本庄・大淀"}
+];
+
+let addedData = JSON.parse(localStorage.getItem("addedData_kita") || "[]");
+let doneList = JSON.parse(localStorage.getItem("doneList_kita") || "[]");
+
+function allData(){
+  return DATA.concat(addedData);
+}
+
+function normalizeText(text){
+  return String(text || "")
+    .toLowerCase()
+    .replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0)-65248))
+    .replace(/　/g," ")
+    .replace(/丁目/g,"")
+    .replace(/番/g,"")
+    .replace(/号/g,"");
+}
+
+function getFiltered(){
+  const key = normalizeText(document.getElementById("keyword").value);
+  const area = document.getElementById("area").value;
+
+  return allData().filter(item=>{
+    const target = normalizeText(
+      item.name + " " + item.address + " " + item.tel + " " + item.area
+    );
+    const okKey = !key || target.includes(key);
+    const okArea = !area || item.area === area;
+    return okKey && okArea;
+  });
+}
+
+function render(){
+  const list = document.getElementById("list");
+  const items = getFiltered();
+  document.getElementById("count").textContent = items.length;
+  list.innerHTML = "";
+
+  if(items.length === 0){
+    list.innerHTML = "<div class='card'>該当する営業先がありません。検索語を短くしてください。例：北区、天神橋、中崎、南森町、本庄、大淀</div>";
+    return;
+  }
+
+  items.forEach((item, index)=>{
+    const id = item.name + item.address;
+    const done = doneList.includes(id);
+    const telLink = item.tel ? `<a href="tel:${item.tel}"><button class="tel btn-small">電話</button></a>` : "";
+    const mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(item.address);
+    const routeUrl = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(item.address) + "&travelmode=walking";
+
+    const card = document.createElement("div");
+    card.className = "card" + (done ? " done-card" : "");
+    card.innerHTML = `
+      <div class="name">${index+1}. ${item.name}</div>
+      <div>
+        <span class="badge">${item.area || "北区"}</span>
+        <span class="badge">居宅介護支援</span>
+      </div>
+      <div class="meta">
+        住所：${item.address}<br>
+        電話：${item.tel || "未登録"}<br>
+        FAX：${item.fax || "未登録"}
+      </div>
+      <div class="actions">
+        ${telLink}
+        <a href="${mapUrl}" target="_blank"><button class="map btn-small">地図</button></a>
+        <a href="${routeUrl}" target="_blank"><button class="route btn-small">ここへ行く</button></a>
+        <button class="done btn-small" onclick="toggleDone('${escapeForJs(id)}')">${done ? "営業済み解除" : "営業済み"}</button>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function escapeForJs(str){
+  return str.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+
+function toggleDone(id){
+  if(doneList.includes(id)){
+    doneList = doneList.filter(x=>x!==id);
+  }else{
+    doneList.push(id);
+  }
+  localStorage.setItem("doneList_kita", JSON.stringify(doneList));
+  render();
+}
+
+function resetSearch(){
+  document.getElementById("keyword").value = "";
+  document.getElementById("area").value = "";
+  render();
+}
+
+function openRoute(){
+  const items = getFiltered().slice(0,9);
+  if(items.length === 0){
+    alert("ルートにする営業先がありません");
+    return;
+  }
+
+  const origin = "大阪市北区";
+  const destination = items[items.length-1].address;
+  const waypoints = items.slice(0, -1).map(x=>x.address).join("|");
+
+  let url = "https://www.google.com/maps/dir/?api=1";
+  url += "&origin=" + encodeURIComponent(origin);
+  url += "&destination=" + encodeURIComponent(destination);
+  if(waypoints){
+    url += "&waypoints=" + encodeURIComponent(waypoints);
+  }
+  url += "&travelmode=walking";
+  window.open(url, "_blank");
+}
+
+function addCSV(){
+  const text = document.getElementById("csvInput").value.trim();
+  if(!text){
+    alert("CSVを入力してください");
+    return;
+  }
+
+  const lines = text.split(/\n/);
+  let added = 0;
+
+  lines.forEach(line=>{
+    const cols = line.split(",");
+    if(cols.length >= 3){
+      const item = {
+        name: cols[0].trim(),
+        address: cols[1].trim(),
+        tel: cols[2].trim(),
+        fax: "",
+        area: cols[3] ? cols[3].trim() : "北区"
+      };
+      if(item.name && item.address){
+        addedData.push(item);
+        added++;
+      }
+    }
+  });
+
+  localStorage.setItem("addedData_kita", JSON.stringify(addedData));
+  document.getElementById("csvInput").value = "";
+  alert(added + "件追加しました");
+  render();
+}
+
+function copyCSV(){
+  const header = "事業所名,住所,電話番号,FAX,エリア\n";
+  const rows = allData().map(x =>
+    `"${x.name}","${x.address}","${x.tel || ""}","${x.fax || ""}","${x.area || ""}"`
+  ).join("\n");
+
+  navigator.clipboard.writeText(header + rows).then(()=>{
+    alert("CSVをコピーしました。スプレッドシートやExcelに貼れます。");
+  });
+}
+
+render();
+</script>
+
+</body>
+</html>
