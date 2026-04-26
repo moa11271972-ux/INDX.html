@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MOA営業アプリ｜中央区・北区 地域包括・居宅</title>
+<title>MOA大阪府全域営業アプリ</title>
 
 <style>
 *{box-sizing:border-box;}
@@ -12,12 +12,12 @@
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
-  background:#f4f1ec;
+  background:#f5f1ea;
   color:#2f2a25;
 }
 
 header{
-  background:linear-gradient(135deg,#4b3628,#9a7a54);
+  background:linear-gradient(135deg,#3f2d22,#9b7a4d);
   color:#fff;
   padding:18px 12px;
   text-align:center;
@@ -26,7 +26,7 @@ header{
 header h1{
   margin:0;
   font-size:21px;
-  line-height:1.4;
+  line-height:1.45;
 }
 
 header p{
@@ -35,7 +35,7 @@ header p{
 }
 
 .wrap{
-  max-width:980px;
+  max-width:1100px;
   margin:0 auto;
   padding:12px;
 }
@@ -51,7 +51,7 @@ header p{
   margin-bottom:12px;
 }
 
-.controls{
+.box{
   background:#fff;
   border-radius:16px;
   padding:12px;
@@ -80,7 +80,8 @@ input,select,textarea{
 }
 
 textarea{
-  min-height:90px;
+  min-height:110px;
+  font-family:monospace;
 }
 
 button{
@@ -95,8 +96,22 @@ button{
 .btn-main{background:#5b4636;color:#fff;}
 .btn-sub{background:#e7ddd0;color:#3c332b;}
 .btn-green{background:#2f8f5b;color:#fff;}
+.btn-blue{background:#2f6fbd;color:#fff;}
 .btn-orange{background:#d9822b;color:#fff;}
 .btn-red{background:#b94b4b;color:#fff;}
+.btn-purple{background:#7157a8;color:#fff;}
+
+.officials a{
+  display:inline-block;
+  text-decoration:none;
+  color:#fff;
+  background:#2f6fbd;
+  padding:9px 10px;
+  border-radius:10px;
+  font-size:13px;
+  margin:3px;
+  font-weight:bold;
+}
 
 .summary{
   font-weight:bold;
@@ -113,9 +128,11 @@ button{
   border-left:7px solid #9a7a54;
 }
 
-.card.houkatsu{border-left-color:#2f6fbd;}
-.card.branch{border-left-color:#d9822b;}
 .card.kyotaku{border-left-color:#2f8f5b;}
+.card.houkatsu{border-left-color:#2f6fbd;}
+.card.facility{border-left-color:#8a5dbb;}
+.card.hospital{border-left-color:#b94b4b;}
+.card.other{border-left-color:#9a7a54;}
 
 .tagline{
   display:flex;
@@ -132,6 +149,10 @@ button{
   font-size:12px;
   color:#5b4636;
 }
+
+.tag.hot{background:#ffe6d1;color:#8b3f00;}
+.tag.done{background:#dff3e8;color:#17633c;}
+.tag.ng{background:#f5dada;color:#8b1f1f;}
 
 .name{
   font-size:18px;
@@ -178,6 +199,9 @@ button{
 .map{background:#2f6fbd;}
 .route{background:#d9822b;}
 .copy{background:#5b4636;}
+.doneBtn{background:#2f8f5b;}
+.hotBtn{background:#d9822b;}
+.ngBtn{background:#b94b4b;}
 
 .empty{
   background:#fff;
@@ -211,39 +235,63 @@ button{
 <body>
 
 <header>
-  <h1>MOA営業アプリ<br>中央区・北区 地域包括・居宅</h1>
-  <p>老人ホーム紹介 ぬくもり｜営業訪問・電話・地図・ルート確認</p>
+  <h1>MOA 大阪府全域営業アプリ</h1>
+  <p>老人ホーム紹介 ぬくもり｜居宅・地域包括・施設・病院・営業先管理</p>
 </header>
 
 <div class="wrap">
 
   <div class="notice">
-    ※このアプリは営業訪問の補助用です。電話番号・所在地は変更される場合があります。訪問前に必ず公式情報または電話で確認してください。<br>
-    ※説明時は「無料の老人ホーム紹介」「施設情報の提供」「見学同行・入居手続きサポート」として案内し、法律相談・契約判断の代行は行わない表現にしてください。
+    このアプリは大阪府全域の営業先を管理するためのアプリです。<br>
+    公式CSVやExcelからコピーしたデータを貼り付けて、区・市町村、種別、営業状況で検索できます。<br>
+    電話番号・所在地・指定状況は変更される場合があるため、訪問前に必ず公式情報または電話で確認してください。
   </div>
 
-  <div class="controls">
+  <div class="box officials">
+    <strong>公式データ確認リンク</strong><br>
+    <a href="https://www.pref.osaka.lg.jp/o090100/jigyoshido/kaigo/data.html" target="_blank">大阪府 介護保険事業所台帳CSV</a>
+    <a href="https://www.kaigokensaku.mhlw.go.jp/27/index.php" target="_blank">大阪府 介護事業所検索</a>
+    <a href="https://www.city.osaka.lg.jp/fukushi/page/0000370522.html" target="_blank">大阪市 地域包括一覧</a>
+    <a href="https://www.kaigokensaku.mhlw.go.jp/27/index.php?action_kouhyou_pref_search_condition_index=true" target="_blank">条件から事業所検索</a>
+  </div>
+
+  <div class="box">
     <div class="row">
       <div class="col">
-        <input id="keyword" type="text" placeholder="例：北区、中央区、本町、梅田、天神橋、居宅、地域包括">
+        <input id="keyword" type="text" placeholder="例：北区、豊中、池田、箕面、居宅、ケアプラン、病院、施設名">
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <select id="ward">
-          <option value="">区を選択：すべて</option>
-          <option value="中央区">中央区</option>
-          <option value="北区">北区</option>
+        <select id="areaSelect"></select>
+      </div>
+
+      <div class="col">
+        <select id="typeSelect">
+          <option value="">種別：すべて</option>
+          <option value="居宅介護支援事業所">居宅介護支援事業所</option>
+          <option value="地域包括支援センター">地域包括支援センター</option>
+          <option value="総合相談窓口・ブランチ">総合相談窓口・ブランチ</option>
+          <option value="有料老人ホーム">有料老人ホーム</option>
+          <option value="サービス付き高齢者向け住宅">サービス付き高齢者向け住宅</option>
+          <option value="特別養護老人ホーム">特別養護老人ホーム</option>
+          <option value="介護老人保健施設">介護老人保健施設</option>
+          <option value="病院">病院</option>
+          <option value="士業・保証会社">士業・保証会社</option>
+          <option value="その他">その他</option>
         </select>
       </div>
 
       <div class="col">
-        <select id="category">
-          <option value="">種別：すべて</option>
-          <option value="地域包括支援センター">地域包括支援センター</option>
-          <option value="総合相談窓口・ブランチ">総合相談窓口・ブランチ</option>
-          <option value="居宅介護支援事業所">居宅介護支援事業所</option>
+        <select id="statusSelect">
+          <option value="">営業状況：すべて</option>
+          <option value="未訪問">未訪問</option>
+          <option value="優先">優先</option>
+          <option value="訪問済み">訪問済み</option>
+          <option value="見込みあり">見込みあり</option>
+          <option value="再訪問">再訪問</option>
+          <option value="対象外">対象外</option>
         </select>
       </div>
     </div>
@@ -251,21 +299,63 @@ button{
     <div class="row">
       <button class="btn-main" onclick="renderList()">検索する</button>
       <button class="btn-sub" onclick="resetSearch()">リセット</button>
-      <button class="btn-orange" onclick="openAllRoute()">表示中ルート</button>
+      <button class="btn-orange" onclick="openRouteForVisible()">表示中ルート</button>
+      <button class="btn-purple" onclick="downloadCsv()">CSV出力</button>
     </div>
   </div>
 
-  <div class="controls">
-    <strong>CSVで営業先を追加</strong>
+  <div class="box">
+    <strong>営業先をCSVで追加</strong>
     <p class="small">
-      形式：区,種別,名前,住所,電話,FAX,メモ<br>
-      例：北区,居宅介護支援事業所,〇〇ケアプランセンター,大阪市北区〇〇1-1-1,06-0000-0000,06-0000-0001,営業メモ
+      使いやすい形式：<br>
+      市区町村,種別,名前,住所,電話,FAX,メモ<br><br>
+      例：豊中市,居宅介護支援事業所,〇〇ケアプランセンター,大阪府豊中市〇〇1-1-1,06-0000-0000,06-0000-0001,居宅営業先<br><br>
+      大阪府公式CSVやExcelから貼る場合も、できるだけ「事業所名・住所・電話番号・サービス種類」が入るように貼ってください。
     </p>
-    <textarea id="csvInput" placeholder="ここにCSVを貼り付け"></textarea>
+
+    <textarea id="csvInput" placeholder="ここにCSV、またはExcelからコピーした表を貼り付け"></textarea>
+
     <div class="row">
       <button class="btn-green" onclick="importCsv()">CSVを追加する</button>
-      <button class="btn-red" onclick="clearAddedData()">追加データを消す</button>
+      <button class="btn-red" onclick="clearAllData()">保存データを全部消す</button>
     </div>
+  </div>
+
+  <div class="box">
+    <strong>1件ずつ手入力で追加</strong>
+    <div class="row">
+      <div class="col"><select id="manualArea"></select></div>
+      <div class="col">
+        <select id="manualType">
+          <option value="居宅介護支援事業所">居宅介護支援事業所</option>
+          <option value="地域包括支援センター">地域包括支援センター</option>
+          <option value="総合相談窓口・ブランチ">総合相談窓口・ブランチ</option>
+          <option value="有料老人ホーム">有料老人ホーム</option>
+          <option value="サービス付き高齢者向け住宅">サービス付き高齢者向け住宅</option>
+          <option value="特別養護老人ホーム">特別養護老人ホーム</option>
+          <option value="介護老人保健施設">介護老人保健施設</option>
+          <option value="病院">病院</option>
+          <option value="士業・保証会社">士業・保証会社</option>
+          <option value="その他">その他</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col"><input id="manualName" placeholder="営業先名"></div>
+      <div class="col"><input id="manualAddress" placeholder="住所"></div>
+    </div>
+
+    <div class="row">
+      <div class="col"><input id="manualTel" placeholder="電話番号"></div>
+      <div class="col"><input id="manualFax" placeholder="FAX"></div>
+    </div>
+
+    <div class="row">
+      <div class="col"><input id="manualMemo" placeholder="営業メモ"></div>
+    </div>
+
+    <button class="btn-green" onclick="addManual()">手入力データを追加</button>
   </div>
 
   <div id="summary" class="summary"></div>
@@ -273,189 +363,130 @@ button{
 
   <div class="footer">
     MOA合同会社｜老人ホーム紹介 ぬくもり<br>
-    大阪市・豊中市・池田市・箕面市対応
+    大阪府全域対応版
   </div>
 
 </div>
 
 <script>
 /* =====================================================
-   MOA営業アプリ 完全版
-   中央区・北区 地域包括支援センター・ブランチ・居宅介護支援事業所
+   大阪府全域 営業アプリ
+   CSV読み込み・手入力・検索・電話・地図・ルート・営業状況保存
 ===================================================== */
 
-const baseHoukatsu = [
+const OSAKA_AREAS = [
+  "大阪市北区","大阪市都島区","大阪市福島区","大阪市此花区","大阪市中央区",
+  "大阪市西区","大阪市港区","大阪市大正区","大阪市天王寺区","大阪市浪速区",
+  "大阪市西淀川区","大阪市淀川区","大阪市東淀川区","大阪市東成区","大阪市生野区",
+  "大阪市旭区","大阪市城東区","大阪市鶴見区","大阪市阿倍野区","大阪市住之江区",
+  "大阪市住吉区","大阪市東住吉区","大阪市平野区","大阪市西成区",
+  "堺市堺区","堺市中区","堺市東区","堺市西区","堺市南区","堺市北区","堺市美原区",
+  "岸和田市","豊中市","池田市","吹田市","泉大津市","高槻市","貝塚市","守口市",
+  "枚方市","茨木市","八尾市","泉佐野市","富田林市","寝屋川市","河内長野市",
+  "松原市","大東市","和泉市","箕面市","柏原市","羽曳野市","門真市","摂津市",
+  "高石市","藤井寺市","東大阪市","泉南市","四條畷市","交野市","大阪狭山市",
+  "阪南市","島本町","豊能町","能勢町","忠岡町","熊取町","田尻町","岬町",
+  "太子町","河南町","千早赤阪村"
+];
+
+const INITIAL_DATA = [
   {
-    ward:"中央区",
-    category:"地域包括支援センター",
+    area:"大阪市中央区",
+    type:"地域包括支援センター",
     name:"中央区地域包括支援センター",
     address:"大阪市中央区上本町西2-5-25",
     tel:"06-6763-8139",
     fax:"06-6763-8151",
-    hours:"訪問前に確認",
-    area:"中央区南部・上本町西方面",
-    memo:"中央区の地域包括支援センター。居宅・高齢者相談の連携挨拶先。",
-    priority:1
+    memo:"中央区の地域包括支援センター。訪問前に公式情報確認。",
+    status:"未訪問"
   },
   {
-    ward:"中央区",
-    category:"地域包括支援センター",
+    area:"大阪市中央区",
+    type:"地域包括支援センター",
     name:"中央区北部地域包括支援センター",
     address:"大阪市中央区農人橋3-1-3 ドミール堺筋本町1階",
     tel:"06-6944-2116",
     fax:"06-6944-2117",
-    hours:"訪問前に確認",
-    area:"本町・堺筋本町・谷町四丁目方面",
-    memo:"MOA事務所から近く、営業起点にしやすい地域包括。",
-    priority:2
+    memo:"本町・堺筋本町方面の営業起点。",
+    status:"未訪問"
   },
   {
-    ward:"北区",
-    category:"地域包括支援センター",
+    area:"大阪市北区",
+    type:"地域包括支援センター",
     name:"北区地域包括支援センター",
     address:"大阪市北区神山町15-11",
     tel:"06-6313-5568",
     fax:"06-6314-6377",
-    hours:"平日9:00〜19:00／土曜9:00〜17:00",
-    area:"梅田・中崎町・扇町・西天満・堂島・中之島方面",
-    memo:"北区中心部の高齢者総合相談窓口。",
-    priority:3
+    memo:"北区中心部の高齢者相談窓口。",
+    status:"未訪問"
   },
   {
-    ward:"北区",
-    category:"地域包括支援センター",
+    area:"大阪市北区",
+    type:"地域包括支援センター",
     name:"北区大淀地域包括支援センター",
     address:"大阪市北区長柄中1-1-21",
     tel:"06-6354-1165",
     fax:"06-6354-1175",
-    hours:"訪問前に確認",
-    area:"長柄・豊崎・中津・大淀方面",
-    memo:"北区北部・大淀方面の地域包括。",
-    priority:4
-  },
-  {
-    ward:"北区",
-    category:"総合相談窓口・ブランチ",
-    name:"梅田東地域総合相談窓口・ブランチ",
-    address:"大阪市北区芝田2-10-39",
-    tel:"06-6372-0804",
-    fax:"06-6105-1361",
-    hours:"訪問前に確認",
-    area:"梅田東・曽根崎・堂島・中之島方面",
-    memo:"梅田周辺の相談窓口。梅田方面の営業時に回りやすい。",
-    priority:5
-  },
-  {
-    ward:"北区",
-    category:"総合相談窓口・ブランチ",
-    name:"豊崎地域総合相談窓口・ブランチ",
-    address:"大阪市北区本庄西2-6-15",
-    tel:"06-6371-6233",
-    fax:"06-6371-6244",
-    hours:"訪問前に確認",
-    area:"豊崎・本庄・中津方面",
-    memo:"豊崎・中津方面の営業時に回りやすい。",
-    priority:6
+    memo:"長柄・豊崎・中津・大淀方面。",
+    status:"未訪問"
   }
 ];
 
-const baseKyotaku = [
-  /* =========================
-     中央区 居宅介護支援事業所
-  ========================= */
-  {ward:"中央区",category:"居宅介護支援事業所",name:"あいあいケア中央",address:"大阪市中央区谷町6-2-30 川島機械ビル2階",tel:"06-6191-2222",fax:"06-6191-2223",memo:"中央区居宅介護支援事業所",priority:101},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"愛フジックス居宅介護支援事業所",address:"大阪市中央区谷町7-3-4 新谷町第3ビル203",tel:"06-6768-1771",fax:"06-6767-5310",memo:"中央区居宅介護支援事業所",priority:102},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"あやめケアプランセンター",address:"大阪市中央区大手通3-3-3 日宝東本町ビル6階1号",tel:"06-4790-8226",fax:"06-4790-8227",memo:"中央区居宅介護支援事業所",priority:103},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"うえに生協診療所ケアプランセンター",address:"大阪市中央区玉造1-8-10 にじ玉造ビル4階",tel:"06-6718-4140",fax:"06-6718-4141",memo:"中央区居宅介護支援事業所",priority:104},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"NPOあったかい手",address:"大阪市中央区安堂寺町1-4-12-201 ヴェルドール安堂寺",tel:"06-6767-8103",fax:"06-6767-8104",memo:"中央区居宅介護支援事業所",priority:105},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"エールシステムズⅠ",address:"大阪市中央区難波3-6-11 なんば池田ビル10階",tel:"06-6634-1590",fax:"06-6634-1589",memo:"中央区居宅介護支援事業所",priority:106},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"大阪ろうあ会館",address:"大阪市中央区谷町5-4-13 谷町福祉センター4階",tel:"06-6761-1394",fax:"06-6768-3833",memo:"中央区居宅介護支援事業所",priority:107},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"おとしよりケアプランセンター",address:"大阪市中央区島之内2-12-28",tel:"06-6212-3261",fax:"06-6212-3497",memo:"中央区居宅介護支援事業所",priority:108},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"オリーブの森",address:"大阪市中央区玉造2-26-70-305",tel:"06-4302-5190",fax:"06-4302-5191",memo:"中央区居宅介護支援事業所",priority:109},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"居宅介護支援事業所アバンダンス",address:"大阪市中央区久太郎町2-2-7 山口興産堺筋本町ビル7階",tel:"06-4963-3224",fax:"06-6261-5621",memo:"中央区居宅介護支援事業所",priority:110},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"居宅介護支援といろ",address:"大阪市中央区安土町1-6-22 グランドメゾン船場905",tel:"06-6263-1016",fax:"06-6262-6606",memo:"中央区居宅介護支援事業所",priority:111},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"くおるとケアプランセンター",address:"大阪市中央区高津3-8-20-101",tel:"06-6636-0605",fax:"06-7635-8127",memo:"中央区居宅介護支援事業所",priority:112},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"グッドライフケア居宅介護支援センター大阪中央",address:"大阪市中央区南船場3-3-5 OKTビル5階",tel:"06-4708-3900",fax:"06-6227-8440",memo:"中央区居宅介護支援事業所",priority:113},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"ケア21 中央",address:"大阪市中央区谷町6-1-14 谷町大治ビル3階A室",tel:"06-4304-7325",fax:"06-4304-7327",memo:"中央区居宅介護支援事業所",priority:114},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"ケアプランセンターそら",address:"大阪市中央区内本町1-3-10-306",tel:"06-4790-1440",fax:"06-4790-1441",memo:"中央区居宅介護支援事業所",priority:115},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"ケアプランセンターナービス大阪",address:"大阪市中央区高麗橋1-7-3",tel:"06-7506-9674",fax:"06-7506-9067",memo:"中央区居宅介護支援事業所",priority:116},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"ケアプランセンターぷらっと",address:"大阪市中央区松屋町9-1 セントラルフォーラム4階",tel:"06-6115-8766",fax:"06-6777-5689",memo:"中央区居宅介護支援事業所",priority:117},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"こころ",address:"大阪市中央区上汐2-1-23 心幸ピースビル3階",tel:"06-6191-0556",fax:"06-6191-0557",memo:"中央区居宅介護支援事業所",priority:118},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"たむらソーシャルネット",address:"大阪市中央区谷町6-14-23",tel:"06-6766-7071",fax:"06-6766-7081",memo:"中央区居宅介護支援事業所",priority:119},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"中央区在宅サービスセンター",address:"大阪市中央区上本町西2-5-25",tel:"06-6763-8139",fax:"06-6763-8151",memo:"中央区居宅介護支援事業所",priority:120},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"ニチイケアセンター難波",address:"大阪市中央区南船場2-6-10 ツチノビル2階2",tel:"06-4964-8531",fax:"06-4964-8535",memo:"中央区居宅介護支援事業所",priority:121},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"パインケアプランセンター中央",address:"大阪市中央区南久宝寺町2-1-9 船場メディカルビル5F",tel:"06-6224-0924",fax:"06-6224-0925",memo:"中央区居宅介護支援事業所",priority:122},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"パルフェ",address:"大阪市中央区上本町西1-2-14 第3松屋ビル1153",tel:"06-6764-0738",fax:"06-6764-0739",memo:"中央区居宅介護支援事業所",priority:123},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"法円坂ケアプランセンター",address:"大阪市中央区谷町4-5-9 谷町アークビル1104",tel:"06-6949-5672",fax:"06-6947-7806",memo:"中央区居宅介護支援事業所",priority:124},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"まっちゃ町ケアステーション",address:"大阪市中央区谷町7-6-14",tel:"06-6764-7856",fax:"06-6764-7866",memo:"中央区居宅介護支援事業所",priority:125},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"南大江地域在宅サービスステーション さくら居宅介護支援事業所",address:"大阪市中央区農人橋1-4-20",tel:"06-6947-3271",fax:"06-6947-5213",memo:"中央区居宅介護支援事業所",priority:126},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"みんとケアプランセンター",address:"大阪市中央区安堂寺町2-2-24 ニッシンビル201",tel:"06-6191-0677",fax:"06-6191-0678",memo:"中央区居宅介護支援事業所",priority:127},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"よつ葉ケアプランセンター",address:"大阪市中央区玉造1-6-22 ジュネス玉造505",tel:"06-6762-6987",fax:"06-6762-6986",memo:"中央区居宅介護支援事業所",priority:128},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"ライフ居宅支援センター",address:"大阪市中央区本町4-4-17 RE-012 610",tel:"06-6484-5410",fax:"06-7635-5622",memo:"中央区居宅介護支援事業所",priority:129},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"らくゆう会ケアプランセンター",address:"大阪市中央区久太郎町1-4-4 JKビル1階",tel:"06-6262-6767",fax:"06-6262-6688",memo:"中央区居宅介護支援事業所",priority:130},
-  {ward:"中央区",category:"居宅介護支援事業所",name:"小規模多機能 フレンド大阪中央",address:"大阪市中央区高津3-14-26",tel:"06-6634-7081",fax:"06-6634-7082",memo:"中央区居宅介護支援事業所",priority:131},
+let salesData = JSON.parse(localStorage.getItem("moa_osaka_sales_data") || "null");
 
-  /* =========================
-     北区 居宅介護支援事業所
-  ========================= */
-  {ward:"北区",category:"居宅介護支援事業所",name:"社会福祉法人恩賜財団済生会支部大阪府済生会中津病院",address:"大阪市北区芝田2-10-39",tel:"06-6372-0733",fax:"06-6372-0752",memo:"北区居宅介護支援事業所",priority:201},
-  {ward:"北区",category:"居宅介護支援事業所",name:"有限会社介護ステーションヘイル",address:"大阪市北区鶴野町4-11-903 朝日プラザ梅田",tel:"06-4802-2084",fax:"06-4802-2086",memo:"北区居宅介護支援事業所",priority:202},
-  {ward:"北区",category:"居宅介護支援事業所",name:"居宅介護支援事業所せいび",address:"大阪市北区中崎西3-3-40",tel:"06-6485-2283",fax:"06-6485-2283",memo:"北区居宅介護支援事業所",priority:203},
-  {ward:"北区",category:"居宅介護支援事業所",name:"アリーケアプランセンター",address:"大阪市北区中崎西1-4-22-305 梅田東ビル",tel:"072-260-9486",fax:"06-7739-5316",memo:"北区居宅介護支援事業所",priority:204},
-  {ward:"北区",category:"居宅介護支援事業所",name:"sfee",address:"大阪市北区中崎西3-2-7",tel:"06-6476-8255",fax:"06-6476-8256",memo:"北区居宅介護支援事業所",priority:205},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンター蓮",address:"大阪市北区中崎西4-3-32-802 ARCA梅田ビル8階",tel:"06-6131-7075",fax:"06-6131-8803",memo:"北区居宅介護支援事業所",priority:206},
-  {ward:"北区",category:"居宅介護支援事業所",name:"医療福祉生協おおさかいきいきケアプランセンター",address:"大阪市北区中崎1-6-20",tel:"06-4802-4366",fax:"06-4802-3511",memo:"北区居宅介護支援事業所",priority:207},
-  {ward:"北区",category:"居宅介護支援事業所",name:"社会医療法人行岡医学研究会行岡病院",address:"大阪市北区浮田2-2-3",tel:"06-6371-9921",fax:"06-6371-4199",memo:"北区居宅介護支援事業所",priority:208},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンタータオ",address:"大阪市北区浪花町13-38 千代田ビル北館6階B号室",tel:"06-6486-9618",fax:"06-6476-8245",memo:"北区居宅介護支援事業所",priority:209},
-  {ward:"北区",category:"居宅介護支援事業所",name:"あいあいケアセンター中崎通り",address:"大阪市北区浪花町5-7",tel:"06-6292-4530",fax:"06-6292-4534",memo:"北区居宅介護支援事業所",priority:210},
-  {ward:"北区",category:"居宅介護支援事業所",name:"あんじゅケアプランセンター",address:"大阪市北区山崎町1-6",tel:"06-6374-2170",fax:"06-6374-2171",memo:"北区居宅介護支援事業所",priority:211},
-  {ward:"北区",category:"居宅介護支援事業所",name:"北区在宅サービスセンター（いきいきネット）",address:"大阪市北区神山町15-11",tel:"06-6313-1911",fax:"06-6314-6377",memo:"北区居宅介護支援事業所",priority:212},
-  {ward:"北区",category:"居宅介護支援事業所",name:"医師会立北区訪問看護ステーション",address:"大阪市北区神山町15-11",tel:"06-6313-1415",fax:"06-6313-1416",memo:"北区居宅介護支援事業所",priority:213},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアセンターてんま",address:"大阪市北区池田町12-10",tel:"06-6136-0200",fax:"06-6136-0202",memo:"北区居宅介護支援事業所",priority:214},
-  {ward:"北区",category:"居宅介護支援事業所",name:"リンクケアプラン",address:"大阪市北区松ケ枝町6-1-603 グロウビル",tel:"090-8367-4091",fax:"",memo:"北区居宅介護支援事業所",priority:215},
-  {ward:"北区",category:"居宅介護支援事業所",name:"グッドライフケア居宅介護支援センター大阪北",address:"大阪市北区紅梅町1-6 カザリーノビル6階",tel:"06-6809-5570",fax:"06-6948-6521",memo:"北区居宅介護支援事業所",priority:216},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアサービスダンデライオン",address:"大阪市北区天神橋5-7-10 さかしん天神橋ビル7F",tel:"06-4801-8322",fax:"06-4801-8344",memo:"北区居宅介護支援事業所",priority:217},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアクル居宅介護支援センター",address:"大阪市北区天神橋2-2-10-301",tel:"06-6351-2177",fax:"06-6351-2178",memo:"北区居宅介護支援事業所",priority:218},
-  {ward:"北区",category:"居宅介護支援事業所",name:"匠ケア",address:"大阪市北区天神橋2丁目北1-21 八千代ビル東館2K号",tel:"06-6967-9993",fax:"06-6967-9994",memo:"北区居宅介護支援事業所",priority:219},
-  {ward:"北区",category:"居宅介護支援事業所",name:"株式会社KOSMOホームヘルプサービス大阪事業所",address:"大阪市北区天神橋2-2-10-501 ハイ・マウントビル",tel:"06-4309-6672",fax:"06-4309-6673",memo:"北区居宅介護支援事業所",priority:220},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ひかり介護サービス",address:"大阪市北区天神橋3-2-31",tel:"06-4801-9754",fax:"06-4801-9755",memo:"北区居宅介護支援事業所",priority:221},
-  {ward:"北区",category:"居宅介護支援事業所",name:"居宅介護支援事業所ほりかわ",address:"大阪市北区天神橋2丁目北1-2",tel:"06-6351-8281",fax:"06-6351-8298",memo:"北区居宅介護支援事業所",priority:222},
-  {ward:"北区",category:"居宅介護支援事業所",name:"クローバー居宅介護支援事業所",address:"大阪市北区天神橋5-6-23",tel:"06-6352-8470",fax:"06-6352-8472",memo:"北区居宅介護支援事業所",priority:223},
-  {ward:"北区",category:"居宅介護支援事業所",name:"天神介護サービス",address:"大阪市北区天神橋3-7-18-302 三海ビル",tel:"06-6353-2012",fax:"06-6353-2013",memo:"北区居宅介護支援事業所",priority:224},
-  {ward:"北区",category:"居宅介護支援事業所",name:"アリスケア",address:"大阪市北区天神橋5-8-12 大河崎ビル6階",tel:"06-6809-1168",fax:"06-6809-1169",memo:"北区居宅介護支援事業所",priority:225},
-  {ward:"北区",category:"居宅介護支援事業所",name:"トータルサービス冨士田",address:"大阪市北区天神橋1-18-25",tel:"06-6352-0567",fax:"06-6352-2900",memo:"北区居宅介護支援事業所",priority:226},
-  {ward:"北区",category:"居宅介護支援事業所",name:"アンポートケアプランセンター",address:"大阪市北区天満2-9-13",tel:"06-4801-8373",fax:"06-4801-8372",memo:"北区居宅介護支援事業所",priority:227},
-  {ward:"北区",category:"居宅介護支援事業所",name:"すこやか介護ケアプランセンター",address:"大阪市北区天神西町1-6 アールビル天神西8F",tel:"06-6940-4160",fax:"06-6940-4161",memo:"北区居宅介護支援事業所",priority:228},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ピースケアプランセンター",address:"大阪市北区菅原町11-10 オーキッド中之島402号North",tel:"06-6361-0075",fax:"06-4709-6000",memo:"北区居宅介護支援事業所",priority:229},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンターMSC",address:"大阪市北区西天満3-13-20 ASビル6階",tel:"06-6232-8263",fax:"06-6232-8122",memo:"北区居宅介護支援事業所",priority:230},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンターあずき",address:"大阪市北区南森町1-3-29-1004",tel:"06-6926-4275",fax:"06-6926-4276",memo:"北区居宅介護支援事業所",priority:231},
-  {ward:"北区",category:"居宅介護支援事業所",name:"株式会社ハート介護サービス居宅介護支援事業所",address:"大阪市北区南森町2-2-9 南森町八千代ビル1階",tel:"06-6362-3368",fax:"06-6362-3367",memo:"北区居宅介護支援事業所",priority:232},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンターひまわりの苑",address:"大阪市北区曽根崎1-1-20",tel:"06-7501-8688",fax:"06-7501-8691",memo:"北区居宅介護支援事業所",priority:233},
-  {ward:"北区",category:"居宅介護支援事業所",name:"きん柑ケアプランセンター北",address:"大阪市北区天神橋7-3-2-604 大山ビル",tel:"06-4792-8859",fax:"06-4792-8860",memo:"北区居宅介護支援事業所",priority:234},
-  {ward:"北区",category:"居宅介護支援事業所",name:"えすぽわーるこころ",address:"大阪市北区天神橋7-10-2 喜住ビル1F",tel:"06-6766-4147",fax:"06-6766-4148",memo:"北区居宅介護支援事業所",priority:235},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンター寿梨の里",address:"大阪市北区天神橋7-15-2-101",tel:"06-6360-9323",fax:"06-6360-9322",memo:"北区居宅介護支援事業所",priority:236},
-  {ward:"北区",category:"居宅介護支援事業所",name:"まごころケア北",address:"大阪市北区長柄西1-1-16",tel:"06-6352-0830",fax:"06-6352-0831",memo:"北区居宅介護支援事業所",priority:237},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ハートフルかのうケアプランセンター",address:"大阪市北区長柄中1-1-21",tel:"06-6354-1108",fax:"06-6354-1121",memo:"北区居宅介護支援事業所",priority:238},
-  {ward:"北区",category:"居宅介護支援事業所",name:"エルケア長柄ケアプランセンター",address:"大阪市北区長柄東2-8-36 淀川リバーサイド・ビーネ2階",tel:"06-7688-5078",fax:"06-7688-5079",memo:"北区居宅介護支援事業所",priority:239},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケア21北",address:"大阪市北区国分寺2-1-14 ACOM天六ビル5階",tel:"06-7167-2421",fax:"06-6355-0121",memo:"北区居宅介護支援事業所",priority:240},
-  {ward:"北区",category:"居宅介護支援事業所",name:"株式会社ソニックコーポレーショントータルケアサービス",address:"大阪市北区中津7-3-7-301",tel:"06-6457-0207",fax:"06-6457-0208",memo:"北区居宅介護支援事業所",priority:241},
-  {ward:"北区",category:"居宅介護支援事業所",name:"居宅介護支援事業所藤ミレニアム",address:"大阪市北区本庄西2-6-15",tel:"06-6371-6322",fax:"06-6371-6364",memo:"北区居宅介護支援事業所",priority:242},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンターアセス",address:"大阪市北区本庄西1-9-12 朝日プラザ北梅田1F東側",tel:"06-6486-9073",fax:"06-6292-6658",memo:"北区居宅介護支援事業所",priority:243},
-  {ward:"北区",category:"居宅介護支援事業所",name:"なでしこケアプランセンター",address:"大阪市北区本庄西2-15-12",tel:"06-6373-1724",fax:"06-7502-2296",memo:"北区居宅介護支援事業所",priority:244},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ユアーズ介護ケアプランオフィス",address:"大阪市北区本庄東2-2-25 クリエイト天八ビル7階",tel:"06-6373-7224",fax:"06-6373-7223",memo:"北区居宅介護支援事業所",priority:245},
-  {ward:"北区",category:"居宅介護支援事業所",name:"もりたケアプランセンター",address:"大阪市北区本庄東2-1-23-202 スペチアーレ",tel:"06-6131-9740",fax:"06-6131-9755",memo:"北区居宅介護支援事業所",priority:246},
-  {ward:"北区",category:"居宅介護支援事業所",name:"もこもこセンター",address:"大阪市北区本庄東2-12-15",tel:"06-7651-6935",fax:"06-7652-7774",memo:"北区居宅介護支援事業所",priority:247},
-  {ward:"北区",category:"居宅介護支援事業所",name:"介護ステーションワンピース",address:"大阪市北区本庄東3-10-22",tel:"06-6373-4033",fax:"06-6373-4033",memo:"北区居宅介護支援事業所",priority:248},
-  {ward:"北区",category:"居宅介護支援事業所",name:"愛と心の居宅介護支援センター大阪",address:"大阪市北区本庄東1-14-4",tel:"06-6305-8008",fax:"06-7739-5321",memo:"北区居宅介護支援事業所",priority:249},
-  {ward:"北区",category:"居宅介護支援事業所",name:"居宅介護支援事業所淳風おおさか",address:"大阪市北区大淀南2-5-20",tel:"06-6450-1140",fax:"06-6450-1130",memo:"北区居宅介護支援事業所",priority:250},
-  {ward:"北区",category:"居宅介護支援事業所",name:"ケアプランセンターあいわ",address:"大阪市北区大淀中4-6-16",tel:"06-6345-7832",fax:"06-6345-7833",memo:"北区居宅介護支援事業所",priority:251},
-  {ward:"北区",category:"居宅介護支援事業所",name:"支援事業所大阪北",address:"大阪市北区大淀中5-5-8",tel:"06-7174-4425",fax:"06-7174-4425",memo:"北区居宅介護支援事業所",priority:252}
-];
+if(!salesData){
+  salesData = INITIAL_DATA;
+  saveData();
+}
 
-let addedData = JSON.parse(localStorage.getItem("moa_added_data") || "[]");
+function saveData(){
+  localStorage.setItem("moa_osaka_sales_data", JSON.stringify(salesData));
+}
 
-function getAllData(){
-  return [...baseHoukatsu, ...baseKyotaku, ...addedData];
+function setupAreaSelects(){
+  const areaSelect = document.getElementById("areaSelect");
+  const manualArea = document.getElementById("manualArea");
+
+  areaSelect.innerHTML = `<option value="">市区町村：すべて</option>`;
+  manualArea.innerHTML = ``;
+
+  OSAKA_AREAS.forEach(area => {
+    areaSelect.innerHTML += `<option value="${escapeHtml(area)}">${escapeHtml(area)}</option>`;
+    manualArea.innerHTML += `<option value="${escapeHtml(area)}">${escapeHtml(area)}</option>`;
+  });
+}
+
+function normalizeArea(address, fallback){
+  const text = String(address || fallback || "");
+
+  for(const area of OSAKA_AREAS){
+    if(text.includes(area)) return area;
+  }
+
+  // 大阪市内で「北区」などだけ入っている場合の補正
+  const osakaWards = OSAKA_AREAS.filter(x => x.startsWith("大阪市"));
+  for(const area of osakaWards){
+    const wardOnly = area.replace("大阪市","");
+    if(text.includes(wardOnly)) return area;
+  }
+
+  return fallback || "未分類";
+}
+
+function normalizeType(typeText){
+  const t = String(typeText || "");
+
+  if(t.includes("居宅介護支援")) return "居宅介護支援事業所";
+  if(t.includes("地域包括")) return "地域包括支援センター";
+  if(t.includes("ブランチ") || t.includes("総合相談")) return "総合相談窓口・ブランチ";
+  if(t.includes("有料老人")) return "有料老人ホーム";
+  if(t.includes("サービス付き高齢者") || t.includes("サ高住")) return "サービス付き高齢者向け住宅";
+  if(t.includes("特別養護") || t.includes("特養")) return "特別養護老人ホーム";
+  if(t.includes("老人保健") || t.includes("老健")) return "介護老人保健施設";
+  if(t.includes("病院")) return "病院";
+  if(t.includes("司法書士") || t.includes("弁護士") || t.includes("行政書士") || t.includes("保証")) return "士業・保証会社";
+
+  return t || "その他";
 }
 
 function mapUrl(address){
@@ -468,66 +499,68 @@ function routeUrl(address){
 
 function telUrl(tel){
   if(!tel) return "#";
-  return "tel:" + tel.replaceAll("-", "");
+  return "tel:" + String(tel).replaceAll("-", "").replaceAll(" ", "");
 }
 
-function renderList(){
+function getFilteredData(){
   const keyword = document.getElementById("keyword").value.trim().toLowerCase();
-  const ward = document.getElementById("ward").value;
-  const category = document.getElementById("category").value;
+  const area = document.getElementById("areaSelect").value;
+  const type = document.getElementById("typeSelect").value;
+  const status = document.getElementById("statusSelect").value;
 
-  const allData = getAllData();
-
-  let data = allData.filter(item => {
+  return salesData.filter(item => {
     const text = [
-      item.ward,
-      item.category,
-      item.name,
-      item.address,
-      item.tel,
-      item.fax,
-      item.hours,
-      item.area,
-      item.memo
+      item.area,item.type,item.name,item.address,item.tel,item.fax,item.memo,item.status
     ].join(" ").toLowerCase();
 
     return (!keyword || text.includes(keyword)) &&
-           (!ward || item.ward === ward) &&
-           (!category || item.category === category);
+           (!area || item.area === area) &&
+           (!type || item.type === type) &&
+           (!status || item.status === status);
   });
+}
 
-  data.sort((a,b) => (a.priority || 9999) - (b.priority || 9999));
+function renderList(){
+  const data = getFilteredData();
 
   document.getElementById("summary").textContent =
-    "表示件数：" + data.length + "件 ／ 登録総数：" + allData.length + "件";
+    "表示件数：" + data.length + "件 ／ 登録総数：" + salesData.length + "件";
 
   const list = document.getElementById("list");
 
   if(data.length === 0){
-    list.innerHTML = `<div class="empty">該当する営業先がありません。<br>検索文字を短くして試してください。</div>`;
+    list.innerHTML = `<div class="empty">該当する営業先がありません。<br>検索条件を変えるか、CSVでデータを追加してください。</div>`;
     return;
   }
 
   list.innerHTML = data.map((item,index) => {
-    let cardClass = "card";
-    if(item.category === "地域包括支援センター") cardClass += " houkatsu";
-    if(item.category === "総合相談窓口・ブランチ") cardClass += " branch";
-    if(item.category === "居宅介護支援事業所") cardClass += " kyotaku";
+    const realIndex = salesData.indexOf(item);
+    let cardClass = "card other";
+
+    if(item.type === "居宅介護支援事業所") cardClass = "card kyotaku";
+    if(item.type === "地域包括支援センター" || item.type === "総合相談窓口・ブランチ") cardClass = "card houkatsu";
+    if(item.type.includes("老人ホーム") || item.type.includes("施設")) cardClass = "card facility";
+    if(item.type === "病院") cardClass = "card hospital";
+
+    let statusClass = "";
+    if(item.status === "優先" || item.status === "見込みあり") statusClass = "hot";
+    if(item.status === "訪問済み") statusClass = "done";
+    if(item.status === "対象外") statusClass = "ng";
 
     return `
       <div class="${cardClass}">
         <div class="tagline">
           <span class="tag">${index + 1}</span>
-          <span class="tag">${escapeHtml(item.ward)}</span>
-          <span class="tag">${escapeHtml(item.category)}</span>
+          <span class="tag">${escapeHtml(item.area || "未分類")}</span>
+          <span class="tag">${escapeHtml(item.type || "その他")}</span>
+          <span class="tag ${statusClass}">${escapeHtml(item.status || "未訪問")}</span>
         </div>
 
         <div class="name">${escapeHtml(item.name)}</div>
 
-        <div class="info">📍 <strong>住所：</strong>${escapeHtml(item.address)}</div>
+        <div class="info">📍 <strong>住所：</strong>${escapeHtml(item.address || "")}</div>
         <div class="info">☎️ <strong>電話：</strong>${item.tel ? escapeHtml(item.tel) : "未入力"}</div>
         <div class="info">📠 <strong>FAX：</strong>${item.fax ? escapeHtml(item.fax) : "未入力"}</div>
-        <div class="info">🗺️ <strong>対象：</strong>${escapeHtml(item.area || item.ward || "")}</div>
 
         <div class="memo">
           <strong>営業メモ：</strong><br>
@@ -538,7 +571,10 @@ function renderList(){
           <a class="tel" href="${telUrl(item.tel)}">電話</a>
           <a class="map" href="${mapUrl(item.address)}" target="_blank">地図</a>
           <a class="route" href="${routeUrl(item.address)}" target="_blank">ルート</a>
-          <button class="copy" onclick="copyInfo('${escapeJs(item.name)}')">コピー</button>
+          <button class="copy" onclick="copyInfo(${realIndex})">コピー</button>
+          <button class="hotBtn" onclick="setStatus(${realIndex},'優先')">優先</button>
+          <button class="doneBtn" onclick="setStatus(${realIndex},'訪問済み')">訪問済</button>
+          <button class="ngBtn" onclick="setStatus(${realIndex},'対象外')">対象外</button>
         </div>
       </div>
     `;
@@ -547,66 +583,29 @@ function renderList(){
 
 function resetSearch(){
   document.getElementById("keyword").value = "";
-  document.getElementById("ward").value = "";
-  document.getElementById("category").value = "";
+  document.getElementById("areaSelect").value = "";
+  document.getElementById("typeSelect").value = "";
+  document.getElementById("statusSelect").value = "";
   renderList();
 }
 
-function openAllRoute(){
-  const keyword = document.getElementById("keyword").value.trim().toLowerCase();
-  const ward = document.getElementById("ward").value;
-  const category = document.getElementById("category").value;
-
-  let data = getAllData().filter(item => {
-    const text = [
-      item.ward,
-      item.category,
-      item.name,
-      item.address,
-      item.tel,
-      item.fax,
-      item.hours,
-      item.area,
-      item.memo
-    ].join(" ").toLowerCase();
-
-    return (!keyword || text.includes(keyword)) &&
-           (!ward || item.ward === ward) &&
-           (!category || item.category === category);
-  });
-
-  data.sort((a,b) => (a.priority || 9999) - (b.priority || 9999));
-
-  if(data.length === 0){
-    alert("表示中の営業先がありません。");
-    return;
-  }
-
-  if(data.length > 10){
-    alert("Googleマップのルートは多すぎると開けない場合があります。区や種別で10件以内に絞るのがおすすめです。");
-  }
-
-  const destination = data[data.length - 1].address;
-  const waypoints = data.slice(0, -1).map(x => x.address).join("|");
-
-  let url = "https://www.google.com/maps/dir/?api=1";
-  url += "&destination=" + encodeURIComponent(destination);
-  if(waypoints) url += "&waypoints=" + encodeURIComponent(waypoints);
-
-  window.open(url, "_blank");
+function setStatus(index,status){
+  salesData[index].status = status;
+  saveData();
+  renderList();
 }
 
-function copyInfo(name){
-  const item = getAllData().find(x => x.name === name);
-  if(!item) return;
+function copyInfo(index){
+  const item = salesData[index];
 
   const text =
-`【${item.ward}】${item.category}
+`【${item.area}】${item.type}
 ${item.name}
 
 住所：${item.address}
 電話：${item.tel || "未入力"}
 FAX：${item.fax || "未入力"}
+営業状況：${item.status || "未訪問"}
 メモ：${item.memo || ""}
 地図：${mapUrl(item.address)}`;
 
@@ -617,55 +616,257 @@ FAX：${item.fax || "未入力"}
   });
 }
 
-function importCsv(){
-  const csv = document.getElementById("csvInput").value.trim();
-  if(!csv){
-    alert("CSVを貼り付けてください。");
+function openRouteForVisible(){
+  const data = getFilteredData();
+
+  if(data.length === 0){
+    alert("表示中の営業先がありません。");
     return;
   }
 
-  const lines = csv.split(/\r?\n/).filter(line => line.trim());
+  if(data.length > 10){
+    alert("Googleマップの仕様上、ルートは10件以内に絞るのがおすすめです。市区町村や種別で絞ってください。");
+  }
+
+  const limited = data.slice(0,10);
+  const destination = limited[limited.length - 1].address;
+  const waypoints = limited.slice(0,-1).map(x => x.address).join("|");
+
+  let url = "https://www.google.com/maps/dir/?api=1";
+  url += "&destination=" + encodeURIComponent(destination);
+  if(waypoints) url += "&waypoints=" + encodeURIComponent(waypoints);
+
+  window.open(url,"_blank");
+}
+
+/* =========================
+   CSV読み込み
+========================= */
+
+function parseCsvLine(line){
+  const result = [];
+  let current = "";
+  let inQuotes = false;
+
+  for(let i=0; i<line.length; i++){
+    const char = line[i];
+    const next = line[i+1];
+
+    if(char === '"' && inQuotes && next === '"'){
+      current += '"';
+      i++;
+    }else if(char === '"'){
+      inQuotes = !inQuotes;
+    }else if((char === "," || char === "\t") && !inQuotes){
+      result.push(current.trim());
+      current = "";
+    }else{
+      current += char;
+    }
+  }
+
+  result.push(current.trim());
+  return result;
+}
+
+function findCol(headers, candidates){
+  for(const c of candidates){
+    const idx = headers.findIndex(h => h.includes(c));
+    if(idx !== -1) return idx;
+  }
+  return -1;
+}
+
+function importCsv(){
+  const raw = document.getElementById("csvInput").value.trim();
+
+  if(!raw){
+    alert("CSVまたはExcelコピーを貼り付けてください。");
+    return;
+  }
+
+  const lines = raw.split(/\r?\n/).filter(x => x.trim());
+  if(lines.length === 0){
+    alert("読み込める行がありません。");
+    return;
+  }
+
+  const firstCols = parseCsvLine(lines[0]);
+  const hasHeader = firstCols.some(x =>
+    x.includes("事業所") ||
+    x.includes("名称") ||
+    x.includes("住所") ||
+    x.includes("所在地") ||
+    x.includes("電話") ||
+    x.includes("サービス")
+  );
+
+  let startIndex = 0;
+  let header = [];
+
+  if(hasHeader){
+    header = firstCols;
+    startIndex = 1;
+  }
+
   const newItems = [];
 
-  lines.forEach((line,idx) => {
-    const cols = line.split(",").map(x => x.trim());
+  if(hasHeader){
+    const nameIdx = findCol(header,["事業所名","事業所の名称","名称","施設名"]);
+    const addressIdx = findCol(header,["所在地","住所","事業所所在地"]);
+    const telIdx = findCol(header,["電話番号","電話"]);
+    const faxIdx = findCol(header,["FAX番号","ＦＡＸ","FAX"]);
+    const typeIdx = findCol(header,["サービス種類","サービス名","種別"]);
+    const areaIdx = findCol(header,["市区町村","市町村","区"]);
 
-    if(cols.length < 4) return;
+    for(let i=startIndex; i<lines.length; i++){
+      const cols = parseCsvLine(lines[i]);
 
-    const item = {
-      ward: cols[0] || "",
-      category: cols[1] || "居宅介護支援事業所",
-      name: cols[2] || "",
-      address: cols[3] || "",
-      tel: cols[4] || "",
-      fax: cols[5] || "",
-      memo: cols[6] || "CSV追加データ",
-      priority: 1000 + addedData.length + idx
-    };
+      const name = cols[nameIdx] || "";
+      const address = cols[addressIdx] || "";
+      const tel = cols[telIdx] || "";
+      const fax = cols[faxIdx] || "";
+      const typeRaw = cols[typeIdx] || "";
+      const areaRaw = cols[areaIdx] || "";
 
-    if(item.name && item.address){
+      if(!name || !address) continue;
+
+      const item = {
+        area: normalizeArea(address, areaRaw),
+        type: normalizeType(typeRaw),
+        name:name,
+        address:address,
+        tel:tel,
+        fax:fax,
+        memo:"CSV取込データ",
+        status:"未訪問"
+      };
+
       newItems.push(item);
+    }
+  }else{
+    for(let i=0; i<lines.length; i++){
+      const cols = parseCsvLine(lines[i]);
+
+      const area = cols[0] || "";
+      const type = cols[1] || "その他";
+      const name = cols[2] || "";
+      const address = cols[3] || "";
+      const tel = cols[4] || "";
+      const fax = cols[5] || "";
+      const memo = cols[6] || "手動CSV追加";
+
+      if(!name || !address) continue;
+
+      const item = {
+        area: normalizeArea(address, area),
+        type: normalizeType(type),
+        name:name,
+        address:address,
+        tel:tel,
+        fax:fax,
+        memo:memo,
+        status:"未訪問"
+      };
+
+      newItems.push(item);
+    }
+  }
+
+  if(newItems.length === 0){
+    alert("追加できるデータがありません。列の並びを確認してください。");
+    return;
+  }
+
+  let addedCount = 0;
+
+  newItems.forEach(item => {
+    const exists = salesData.some(x => x.name === item.name && x.address === item.address);
+    if(!exists){
+      salesData.push(item);
+      addedCount++;
     }
   });
 
-  if(newItems.length === 0){
-    alert("追加できるデータがありません。形式を確認してください。");
-    return;
-  }
-
-  addedData = [...addedData, ...newItems];
-  localStorage.setItem("moa_added_data", JSON.stringify(addedData));
-
+  saveData();
   document.getElementById("csvInput").value = "";
-  alert(newItems.length + "件追加しました。");
+
+  alert(addedCount + "件追加しました。重複は除外しました。");
   renderList();
 }
 
-function clearAddedData(){
-  if(!confirm("CSVで追加したデータだけを消します。よろしいですか？")) return;
-  addedData = [];
-  localStorage.removeItem("moa_added_data");
+function addManual(){
+  const item = {
+    area: document.getElementById("manualArea").value,
+    type: document.getElementById("manualType").value,
+    name: document.getElementById("manualName").value.trim(),
+    address: document.getElementById("manualAddress").value.trim(),
+    tel: document.getElementById("manualTel").value.trim(),
+    fax: document.getElementById("manualFax").value.trim(),
+    memo: document.getElementById("manualMemo").value.trim(),
+    status:"未訪問"
+  };
+
+  if(!item.name || !item.address){
+    alert("営業先名と住所は必須です。");
+    return;
+  }
+
+  item.area = normalizeArea(item.address, item.area);
+
+  salesData.push(item);
+  saveData();
+
+  document.getElementById("manualName").value = "";
+  document.getElementById("manualAddress").value = "";
+  document.getElementById("manualTel").value = "";
+  document.getElementById("manualFax").value = "";
+  document.getElementById("manualMemo").value = "";
+
+  alert("追加しました。");
   renderList();
+}
+
+function clearAllData(){
+  if(!confirm("保存した営業データを全部消して、初期データだけに戻します。よろしいですか？")) return;
+
+  salesData = INITIAL_DATA;
+  saveData();
+  renderList();
+}
+
+function downloadCsv(){
+  const rows = [
+    ["市区町村","種別","名前","住所","電話","FAX","営業状況","メモ"]
+  ];
+
+  salesData.forEach(item => {
+    rows.push([
+      item.area || "",
+      item.type || "",
+      item.name || "",
+      item.address || "",
+      item.tel || "",
+      item.fax || "",
+      item.status || "",
+      item.memo || ""
+    ]);
+  });
+
+  const csv = rows.map(row => row.map(v => {
+    const s = String(v).replaceAll('"','""');
+    return `"${s}"`;
+  }).join(",")).join("\n");
+
+  const blob = new Blob(["\uFEFF" + csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "moa_osaka_sales_list.csv";
+  a.click();
+
+  URL.revokeObjectURL(url);
 }
 
 function escapeHtml(str){
@@ -678,10 +879,7 @@ function escapeHtml(str){
     .replaceAll("'","&#039;");
 }
 
-function escapeJs(str){
-  return String(str).replaceAll("\\","\\\\").replaceAll("'","\\'");
-}
-
+setupAreaSelects();
 renderList();
 </script>
 
